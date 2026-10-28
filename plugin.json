@@ -1,0 +1,18 @@
+{
+    "id": "simplify-hosting",
+    "name": "Simplify Hosting",
+    "author": "jera",
+    "version": "1.0.0",
+    "description": "For hosting companies: a billing link on every server, a client area and order link for customers, and host mode as the default for admins.",
+    "category": "plugin",
+    "namespace": "Simplify\\Hosting",
+    "class": "SimplifyHostingPlugin",
+    "panels": [
+        "admin",
+        "app",
+        "server"
+    ],
+    "panel_version": "^1.0.0-beta38",
+    "api_version": 1,
+    "update_url": "https://hub.pelican.dev/plugins/simplify-hosting/update.json"
+}

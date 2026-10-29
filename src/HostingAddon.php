@@ -65,4 +65,22 @@ final class HostingAddon extends Addon
     {
         return (bool) Settings::get('host_mode');
     }
+
+    /** In Simplify's setup (Simplify 1.3+, add-on API 3): the hoster's links and the host mode default. */
+    public function setupFields(): array
+    {
+        return HostingSettings::canAccess() ? HostingSettings::sections() : [];
+    }
+
+    public function setupState(): array
+    {
+        return HostingSettings::current();
+    }
+
+    public function saveSetup(array $state): void
+    {
+        if (HostingSettings::canAccess()) {
+            Settings::save($state);
+        }
+    }
 }

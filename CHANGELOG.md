@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- Simplify 1.3's setup now also asks for your billing, client area and order links and the host mode default, so a new panel is set up in one go. On older Simplify versions, or without Simplify, nothing changes.
+
 ## 1.0.0
 
 First version. The hosting settings of Simplify 1.0 moved here.

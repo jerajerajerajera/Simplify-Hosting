@@ -61,15 +61,31 @@ final class HostingSettings extends Page implements HasSchemas
 
     public function mount(): void
     {
-        $this->form->fill(array_combine(Settings::FIELDS, array_map(Settings::get(...), Settings::FIELDS)));
+        $this->form->fill(self::current());
+    }
+
+    /** @return array<string, mixed> the saved settings, by field name */
+    public static function current(): array
+    {
+        return array_combine(Settings::FIELDS, array_map(Settings::get(...), Settings::FIELDS));
     }
 
     public function form(Schema $schema): Schema
     {
+        return $schema->statePath('data')->components(self::sections());
+    }
+
+    /**
+     * The links for customers and the host mode default; also asked in Simplify's setup.
+     *
+     * @return list<Section>
+     */
+    public static function sections(): array
+    {
         $link = fn (string $key, string $placeholder, string $regex = Settings::LINK) => TextInput::make($key.'_url')
             ->label(__(self::T.$key))->helperText(__(self::T.$key.'_help'))->placeholder($placeholder)->maxLength(255)->regex($regex);
 
-        return $schema->statePath('data')->components([
+        return [
             Section::make(__(self::T.'customers'))->schema([
                 $link('billing', 'https://billing.example.com/clientarea.php?action=productdetails&id={external_id}', Settings::BILLING),
                 $link('client_area', 'https://billing.example.com/clientarea.php'),
@@ -78,7 +94,7 @@ final class HostingSettings extends Page implements HasSchemas
             Section::make(__(self::T.'admins'))->schema([
                 Toggle::make('host_mode')->label(__(self::T.'host_mode'))->helperText(__(self::T.'host_mode_help')),
             ]),
-        ]);
+        ];
     }
 
     protected function getHeaderActions(): array

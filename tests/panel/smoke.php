@@ -108,6 +108,19 @@ step('the add-on gives Simplify the billing link, the customer links and host mo
     $tagged = array_map(fn ($a) => $a::class, iterator_to_array(app()->tagged('simplify.addons')));
     must(in_array(HostingAddon::class, $tagged, true), 'the add-on is not tagged');
 });
+step('Simplify\'s setup asks for the links and host mode and saves them', function () use ($admin, $customer) {
+    $addon = app(HostingAddon::class);
+    auth()->setUser($customer);
+    must($addon->setupFields() === [], 'a customer gets the setup fields');
+    auth()->setUser($admin);
+    $state = $addon->setupState();
+    must(count($addon->setupFields()) === 2 && $state['client_area_url'] === 'https://billing.example.com/clientarea', 'the setup fields or values are missing');
+    $addon->saveSetup([...$state, 'order_url' => 'https://billing.example.com/order']);
+    Settings::flush();
+    must(Settings::get('order_url') === 'https://billing.example.com/order' && Settings::get('host_mode') === true, 'the setup answers were not saved');
+    $addon->saveSetup($state);
+    Settings::flush();
+});
 step('the client area is in the account menu', function () use ($customer) {
     $url = Filament\Facades\Filament::getPanel('app')->getUrl();
     $response = visit($customer, $url);

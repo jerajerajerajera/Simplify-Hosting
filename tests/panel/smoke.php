@@ -61,10 +61,10 @@ function visit(User $user, string $url): TestResponse
 
     return $client->actingAs($user)->get($url);
 }
-// Simplify puts its page data in the HTML as JSON, where a slash is written as \/.
+// Simplify puts its page data in the HTML as JSON (\/), sometimes inside JSON.parse('…') (\\/).
 function shows(string $html, string $url): bool
 {
-    return str_contains($html, $url) || str_contains($html, str_replace('/', '\\/', $url));
+    return str_contains($html, $url) || str_contains($html, str_replace('/', '\\/', $url)) || str_contains($html, str_replace('/', '\\\\/', $url));
 }
 function must(bool $ok, string $why): void
 {
@@ -158,7 +158,8 @@ if (! $simplify) {
         $links = array_column(Listing::one($customer, $server)['links'], 'url');
         must(in_array('https://billing.example.com/s/'.$server->uuid, $links, true), 'Upgrade this server is missing: '.json_encode($links));
         $response = visit($customer, Overview::getUrl(panel: 'app'));
-        must($response->getStatusCode() === 200 && shows($response->getContent(), 'https://billing.example.com/store'), 'the overview does not show the order link');
+        must($response->getStatusCode() === 200, 'HTTP '.$response->getStatusCode().' on the overview');
+        must(shows($response->getContent(), 'https://billing.example.com/store'), 'the overview does not show the order link');
     });
     step('with Simplify an admin gets no greeting and starts in host mode', function () use ($admin) {
         Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('app'));

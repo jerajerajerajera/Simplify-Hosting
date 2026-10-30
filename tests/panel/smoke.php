@@ -61,10 +61,10 @@ function visit(User $user, string $url): TestResponse
 
     return $client->actingAs($user)->get($url);
 }
-// Simplify puts its page data in the HTML as JSON (\/), sometimes inside JSON.parse('…') (\\/).
+// Simplify puts its page data in the HTML as escaped JSON (https:\\\/\\\/…): compare without the backslashes.
 function shows(string $html, string $url): bool
 {
-    return str_contains($html, $url) || str_contains($html, str_replace('/', '\\/', $url)) || str_contains($html, str_replace('/', '\\\\/', $url));
+    return str_contains(str_replace('\\', '', $html), $url);
 }
 function must(bool $ok, string $why): void
 {

@@ -51,10 +51,11 @@ final class HostingAddon extends Addon
 
     public function customerLinks(User $user): array
     {
+        // A link with an icon also goes into Simplify's account menu (Simplify 1.5.2+): only the client area, as in 0.7.0.
         $links = [];
-        foreach (['client_area_url' => 'client_area_link', 'order_url' => 'order_link'] as $key => $label) {
+        foreach (['client_area_url' => ['client_area_link', 'tabler-receipt'], 'order_url' => ['order_link', null]] as $key => [$label, $icon]) {
             if ($url = Settings::get($key)) {
-                $links[] = new Button(__('simplify-hosting::hosting.'.$label), $url);
+                $links[] = new Button(__('simplify-hosting::hosting.'.$label), $url, $icon);
             }
         }
 

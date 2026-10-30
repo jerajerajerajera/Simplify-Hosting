@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- With Simplify 1.5.2 or later, Client area is back in Simplify's account menu, as in PelicanSimplify 0.7.0.
+
 ## 1.0.2
 
 - The settings page no longer scrolls as a whole page with Simplify 1.5: the form scrolls under the page title.

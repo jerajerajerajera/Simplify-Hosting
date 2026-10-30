@@ -37,6 +37,12 @@ both over once, so nothing has to be entered again.
 
 Updates come from the Pelican Hub only.
 
+## Development
+
+- `bash tests/run.sh` runs the checks that need no panel, including `tests/hub-check.py`.
+- `pint` formats the code (Laravel preset).
+- `python3 scripts/build-package.py` builds the zip for the Hub.
+
 ## License
 
-See [LICENSE.md](LICENSE.md).
+Source available, see [LICENSE.md](LICENSE.md). Copyright (c) 2026 Jeroen (jerajerajerajera).

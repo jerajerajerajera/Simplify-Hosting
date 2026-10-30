@@ -3,6 +3,7 @@
 // Loads Simplify Hosting inside a real Pelican panel and opens its pages.
 // Run from the panel folder after `php artisan p:plugin:install simplify-hosting`:
 // php plugins/simplify-hosting/tests/panel/smoke.php
+use App\Filament\Server\Pages\Console;
 use App\Models\Role;
 use App\Models\Server;
 use App\Models\User;
@@ -13,6 +14,8 @@ use Illuminate\Foundation\Testing\Concerns\InteractsWithSession;
 use Illuminate\Foundation\Testing\Concerns\MakesHttpRequests;
 use Illuminate\Testing\TestResponse;
 use Livewire\Livewire;
+use Simplify\Core\Filament\App\Pages\Overview;
+use Simplify\Core\Overview\Listing;
 use Simplify\Hosting\Filament\Admin\Pages\HostingSettings;
 use Simplify\Hosting\HostingAddon;
 use Simplify\Hosting\Services\Settings;
@@ -57,6 +60,11 @@ function visit(User $user, string $url): TestResponse
     };
 
     return $client->actingAs($user)->get($url);
+}
+// Simplify puts its page data in the HTML as escaped JSON (https:\\\/\\\/…): compare without the backslashes.
+function shows(string $html, string $url): bool
+{
+    return str_contains(str_replace('\\', '', $html), $url);
 }
 function must(bool $ok, string $why): void
 {
@@ -121,14 +129,44 @@ step('Simplify\'s setup asks for the links and host mode and saves them', functi
     $addon->saveSetup($state);
     Settings::flush();
 });
-step('the client area is in the account menu', function () use ($customer) {
-    $url = Filament\Facades\Filament::getPanel('app')->getUrl();
-    $response = visit($customer, $url);
-    if ($response->isRedirect()) {
-        $response = visit($customer, (string) $response->headers->get('Location'));
-    }
-    must(str_contains($response->getContent(), 'billing.example.com/clientarea'), 'the client area link is missing');
-});
+$simplify = class_exists('Simplify\Core\SimplifyPlugin');
+$server = Server::where('owner_id', $customer->id)->first()
+    ?? Server::factory()->create(['owner_id' => $customer->id, 'name' => 'Smoke hosting server']);
+if (! $simplify) {
+    step('the client area is in the account menu', function () use ($customer) {
+        $url = Filament\Facades\Filament::getPanel('app')->getUrl();
+        $response = visit($customer, $url);
+        if ($response->isRedirect()) {
+            $response = visit($customer, (string) $response->headers->get('Location'));
+        }
+        must(shows($response->getContent(), 'https://billing.example.com/clientarea'), 'the client area link is missing');
+    });
+    step('the console shows Upgrade this server to its owner', function () use ($customer, $server) {
+        $url = Console::getUrl(panel: 'server', tenant: $server);
+        $response = visit($customer, $url);
+        must($response->getStatusCode() === 200, 'HTTP '.$response->getStatusCode().' at '.$url);
+        must(shows($response->getContent(), 'https://billing.example.com/s/'.$server->uuid), 'the billing link is missing on the console');
+    });
+} else {
+    // P08: a customer sees a greeting with the client area and order link, and Upgrade this server on their server page.
+    step('with Simplify a customer gets the greeting links and Upgrade this server', function () use ($customer, $server) {
+        Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('app'));
+        $boot = Livewire::actingAs($customer)->test(Overview::class)->instance()->initial();
+        $urls = array_column($boot['customer'], 'url');
+        must(array_slice($urls, 0, 2) === ['https://billing.example.com/clientarea', 'https://billing.example.com/store'], 'the greeting links are wrong: '.json_encode($urls));
+        // The server page's ⋯ menu.
+        $links = array_column(Listing::one($customer, $server)['links'], 'url');
+        must(in_array('https://billing.example.com/s/'.$server->uuid, $links, true), 'Upgrade this server is missing: '.json_encode($links));
+        $response = visit($customer, Overview::getUrl(panel: 'app'));
+        must($response->getStatusCode() === 200, 'HTTP '.$response->getStatusCode().' on the overview');
+        must(shows($response->getContent(), 'https://billing.example.com/store'), 'the overview does not show the order link');
+    });
+    step('with Simplify an admin gets no greeting and starts in host mode', function () use ($admin) {
+        Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('app'));
+        $boot = Livewire::actingAs($admin)->test(Overview::class)->instance()->initial();
+        must($boot['customer'] === [] && $boot['host_mode_auto'] === true, 'an admin gets the greeting or no host mode: '.json_encode([$boot['customer'], $boot['host_mode_auto']]));
+    });
+}
 
 echo $failed ? "Some steps failed\n" : "All steps passed\n";
 exit($failed ? 1 : 0);

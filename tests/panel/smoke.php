@@ -14,6 +14,7 @@ use Illuminate\Foundation\Testing\Concerns\InteractsWithSession;
 use Illuminate\Foundation\Testing\Concerns\MakesHttpRequests;
 use Illuminate\Testing\TestResponse;
 use Livewire\Livewire;
+use Simplify\Core\Filament\App\Pages\Overview;
 use Simplify\Hosting\Filament\Admin\Pages\HostingSettings;
 use Simplify\Hosting\HostingAddon;
 use Simplify\Hosting\Services\Settings;
@@ -149,17 +150,17 @@ if (! $simplify) {
     // P08: a customer sees a greeting with the client area and order link, and Upgrade this server on their server.
     step('with Simplify a customer gets the greeting links and Upgrade this server', function () use ($customer, $server) {
         Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('app'));
-        $boot = Livewire::actingAs($customer)->test(Simplify\Core\Filament\App\Pages\Overview::class)->instance()->initial();
+        $boot = Livewire::actingAs($customer)->test(Overview::class)->instance()->initial();
         $urls = array_column($boot['customer'], 'url');
         must(array_slice($urls, 0, 2) === ['https://billing.example.com/clientarea', 'https://billing.example.com/store'], 'the greeting links are wrong: '.json_encode($urls));
-        $card = collect($boot['servers'])->firstWhere('uuid', $server->uuid);
-        must(in_array('https://billing.example.com/s/'.$server->uuid, array_column($card['links'] ?? [], 'url'), true), 'Upgrade this server is missing: '.json_encode($card['links'] ?? null));
-        $response = visit($customer, Simplify\Core\Filament\App\Pages\Overview::getUrl(panel: 'app'));
+        $card = collect($boot['servers'])->firstWhere('uuid', (string) $server->uuid);
+        must(in_array('https://billing.example.com/s/'.$server->uuid, array_column($card['links'] ?? [], 'url'), true), 'Upgrade this server is missing: '.json_encode([$card['links'] ?? null, $server->uuid, array_column($boot['servers'], 'uuid')]));
+        $response = visit($customer, Overview::getUrl(panel: 'app'));
         must($response->getStatusCode() === 200 && shows($response->getContent(), 'https://billing.example.com/store'), 'the overview does not show the order link');
     });
     step('with Simplify an admin gets no greeting and starts in host mode', function () use ($admin) {
         Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('app'));
-        $boot = Livewire::actingAs($admin)->test(Simplify\Core\Filament\App\Pages\Overview::class)->instance()->initial();
+        $boot = Livewire::actingAs($admin)->test(Overview::class)->instance()->initial();
         must($boot['customer'] === [] && $boot['host_mode_auto'] === true, 'an admin gets the greeting or no host mode: '.json_encode([$boot['customer'], $boot['host_mode_auto']]));
     });
 }

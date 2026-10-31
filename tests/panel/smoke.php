@@ -112,6 +112,8 @@ step('the add-on gives Simplify the billing link, the customer links and host mo
     must(($links[0]->url ?? null) === 'https://billing.example.com/s/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee', 'the billing link is wrong: '.json_encode($links));
     $urls = array_map(fn ($link) => $link->url, $addon->customerLinks($customer));
     must($urls === ['https://billing.example.com/clientarea', 'https://billing.example.com/store'], 'the customer links are wrong: '.json_encode($urls));
+    $icons = array_map(fn ($link) => $link->icon, $addon->customerLinks($customer));
+    must($icons === ['tabler-receipt', null], 'only the client area belongs in the account menu: '.json_encode($icons));
     must($addon->hostModeDefault() && $addon->id() === 'simplify-hosting' && $addon->description() !== '', 'the add-on is incomplete');
     $tagged = array_map(fn ($a) => $a::class, iterator_to_array(app()->tagged('simplify.addons')));
     must(in_array(HostingAddon::class, $tagged, true), 'the add-on is not tagged');

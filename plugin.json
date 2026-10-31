@@ -2,7 +2,7 @@
     "id": "simplify-hosting",
     "name": "Simplify Hosting",
     "author": "jera",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "For hosting companies: a billing link on every server, a client area and order link for customers, and host mode as the default for admins.",
     "category": "plugin",
     "namespace": "Simplify\\Hosting",

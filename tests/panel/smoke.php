@@ -3,6 +3,7 @@
 // Loads Simplify Hosting inside a real Pelican panel and opens its pages.
 // Run from the panel folder after `php artisan p:plugin:install simplify-hosting`:
 // php plugins/simplify-hosting/tests/panel/smoke.php
+use App\Enums\ServerState;
 use App\Filament\Server\Pages\Console;
 use App\Models\Role;
 use App\Models\Server;
@@ -120,6 +121,10 @@ step('the add-on gives Simplify the billing link, the customer links and host mo
     $server->uuid = 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee';
     $links = $addon->serverLinks($server);
     must(($links[0]->url ?? null) === 'https://billing.example.com/s/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee', 'the billing link is wrong: '.json_encode($links));
+    must(! $links[0]->primary, 'a server that is not suspended gets a primary billing link');
+    $server->status = ServerState::Suspended;
+    $links = $addon->serverLinks($server);
+    must($links[0]->label === 'Pay invoice' && $links[0]->primary && $links[0]->icon === 'tabler-receipt', 'a suspended server does not offer Pay invoice: '.json_encode($links));
     $urls = array_map(fn ($link) => $link->url, $addon->customerLinks($customer));
     must($urls === ['https://billing.example.com/clientarea', 'https://billing.example.com/store'], 'the customer links are wrong: '.json_encode($urls));
     $icons = array_map(fn ($link) => $link->icon, $addon->customerLinks($customer));

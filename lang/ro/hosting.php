@@ -16,6 +16,7 @@ return [
     'save' => 'Salvați',
     'saved' => 'Setări salvate',
     'upgrade' => 'Îmbunătățiți acest server',
+    'pay_invoice' => 'Plătește factura',
     'client_area_link' => 'Zona clientului',
     'order_link' => 'Comandă un server',
     'billing_system' => 'Sistem de facturare',

@@ -16,6 +16,7 @@ return [
     'save' => 'Speichern',
     'saved' => 'Einstellungen gespeichert',
     'upgrade' => 'Diesen Server upgraden',
+    'pay_invoice' => 'Rechnung bezahlen',
     'client_area_link' => 'Kundenbereich',
     'order_link' => 'Server bestellen',
     'billing_system' => 'Abrechnungssystem',

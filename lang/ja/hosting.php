@@ -16,6 +16,7 @@ return [
     'save' => '保存',
     'saved' => '設定を保存しました',
     'upgrade' => 'このサーバーをアップグレード',
+    'pay_invoice' => '請求書を支払う',
     'client_area_link' => 'クライアントエリア',
     'order_link' => 'サーバーを注文',
     'billing_system' => '請求システム',

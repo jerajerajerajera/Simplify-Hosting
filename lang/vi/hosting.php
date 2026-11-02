@@ -16,6 +16,7 @@ return [
     'save' => 'Lưu',
     'saved' => 'Đã lưu cài đặt',
     'upgrade' => 'Nâng cấp máy chủ này',
+    'pay_invoice' => 'Thanh toán hóa đơn',
     'client_area_link' => 'Khu vực khách hàng',
     'order_link' => 'Đặt mua máy chủ',
     'billing_system' => 'Hệ thống thanh toán',

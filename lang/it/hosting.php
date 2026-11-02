@@ -16,6 +16,7 @@ return [
     'save' => 'Salva',
     'saved' => 'Impostazioni salvate',
     'upgrade' => 'Potenzia questo server',
+    'pay_invoice' => 'Paga la fattura',
     'client_area_link' => 'Area clienti',
     'order_link' => 'Ordina un server',
     'billing_system' => 'Sistema di fatturazione',

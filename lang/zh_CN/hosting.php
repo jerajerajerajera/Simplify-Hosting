@@ -16,6 +16,7 @@ return [
     'save' => '保存',
     'saved' => '设置已保存',
     'upgrade' => '升级此服务器',
+    'pay_invoice' => '支付账单',
     'client_area_link' => '客户中心',
     'order_link' => '订购服务器',
     'billing_system' => '计费系统',

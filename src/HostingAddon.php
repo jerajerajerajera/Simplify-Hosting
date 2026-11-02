@@ -46,7 +46,14 @@ final class HostingAddon extends Addon
     {
         $url = Settings::billing($server);
 
-        return $url === null ? [] : [new Button(__('simplify-hosting::hosting.upgrade'), $url)];
+        if ($url === null) {
+            return [];
+        }
+
+        // A suspended server mostly means an open invoice: newer Simplify versions show a primary link on its card.
+        return [$server->isSuspended()
+            ? new Button(__('simplify-hosting::hosting.pay_invoice'), $url, 'tabler-receipt', true)
+            : new Button(__('simplify-hosting::hosting.upgrade'), $url)];
     }
 
     public function customerLinks(User $user): array

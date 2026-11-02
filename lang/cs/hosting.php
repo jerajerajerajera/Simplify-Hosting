@@ -16,6 +16,7 @@ return [
     'save' => 'Uložit',
     'saved' => 'Nastavení uloženo',
     'upgrade' => 'Vylepšit tento server',
+    'pay_invoice' => 'Zaplatit fakturu',
     'client_area_link' => 'Klientská zóna',
     'order_link' => 'Objednat server',
     'billing_system' => 'Fakturační systém',

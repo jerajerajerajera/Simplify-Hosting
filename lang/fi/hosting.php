@@ -16,6 +16,7 @@ return [
     'save' => 'Tallenna',
     'saved' => 'Asetukset tallennettu',
     'upgrade' => 'Päivitä tämä palvelin isompaan',
+    'pay_invoice' => 'Maksa lasku',
     'client_area_link' => 'Asiakasalue',
     'order_link' => 'Tilaa palvelin',
     'billing_system' => 'Laskutusjärjestelmä',

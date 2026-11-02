@@ -16,6 +16,7 @@ return [
     'save' => 'Zapisz',
     'saved' => 'Ustawienia zapisane',
     'upgrade' => 'Ulepsz ten serwer',
+    'pay_invoice' => 'Zapłać fakturę',
     'client_area_link' => 'Panel klienta',
     'order_link' => 'Zamów serwer',
     'billing_system' => 'System rozliczeń',

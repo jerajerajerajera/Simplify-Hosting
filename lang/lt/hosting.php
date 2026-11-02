@@ -16,6 +16,7 @@ return [
     'save' => 'Išsaugoti',
     'saved' => 'Nustatymai išsaugoti',
     'upgrade' => 'Patobulinti šį serverį',
+    'pay_invoice' => 'Apmokėti sąskaitą',
     'client_area_link' => 'Kliento zona',
     'order_link' => 'Užsakyti serverį',
     'billing_system' => 'Atsiskaitymo sistema',

@@ -16,6 +16,7 @@ return [
     'save' => 'Simpan',
     'saved' => 'Pengaturan disimpan',
     'upgrade' => 'Tingkatkan server ini',
+    'pay_invoice' => 'Bayar tagihan',
     'client_area_link' => 'Area klien',
     'order_link' => 'Pesan server',
     'billing_system' => 'Sistem penagihan',

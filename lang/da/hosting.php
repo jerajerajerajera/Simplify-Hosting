@@ -16,6 +16,7 @@ return [
     'save' => 'Gem',
     'saved' => 'Indstillinger gemt',
     'upgrade' => 'Opgrader denne server',
+    'pay_invoice' => 'Betal faktura',
     'client_area_link' => 'Kundeområde',
     'order_link' => 'Bestil en server',
     'billing_system' => 'Faktureringssystem',

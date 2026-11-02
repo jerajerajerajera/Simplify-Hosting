@@ -16,6 +16,7 @@ return [
     'save' => 'Save',
     'saved' => 'Settings saved',
     'upgrade' => 'Upgrade this server',
+    'pay_invoice' => 'Pay invoice',
     'client_area_link' => 'Client area',
     'order_link' => 'Order a server',
     'billing_system' => 'Billing system',

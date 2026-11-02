@@ -87,6 +87,8 @@ step('settings page renders for a root admin', function () use ($admin) {
     $url = HostingSettings::getUrl(panel: 'admin');
     $response = visit($admin, $url);
     must($response->getStatusCode() === 200, 'HTTP '.$response->getStatusCode().' at '.$url);
+    // With Simplify the page never scrolls as a whole: the form takes the window's height and scrolls inside (1.0.2).
+    must(str_contains($response->getContent(), '<form wire:submit="save" class="s-fit">'), 'the settings form is not marked s-fit');
 });
 step('settings page is closed to other users', function () use ($customer) {
     must(visit($customer, HostingSettings::getUrl(panel: 'admin'))->getStatusCode() !== 200, 'a customer can open the settings');

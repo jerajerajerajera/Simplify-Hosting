@@ -18,4 +18,7 @@ return [
     'upgrade' => 'Vylepšiť tento server',
     'client_area_link' => 'Klientska zóna',
     'order_link' => 'Objednať server',
+    'billing_system' => 'Fakturačný systém',
+    'billing_system_help' => 'Vyberte svoj a zadajte jeho adresu, tým sa vyplnia tri odkazy nižšie. Stále ich môžete zmeniť.',
+    'billing_address' => 'Adresa vášho fakturačného systému',
 ];

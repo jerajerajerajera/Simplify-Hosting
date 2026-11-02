@@ -18,4 +18,7 @@ return [
     'upgrade' => '升級此伺服器',
     'client_area_link' => '客戶專區',
     'order_link' => '訂購伺服器',
+    'billing_system' => '計費系統',
+    'billing_system_help' => '選擇你的計費系統並輸入其位址，即可填入下方三個連結。之後仍可修改。',
+    'billing_address' => '計費系統的位址',
 ];

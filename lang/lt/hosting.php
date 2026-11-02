@@ -18,4 +18,7 @@ return [
     'upgrade' => 'Patobulinti šį serverį',
     'client_area_link' => 'Kliento zona',
     'order_link' => 'Užsakyti serverį',
+    'billing_system' => 'Atsiskaitymo sistema',
+    'billing_system_help' => 'Pasirinkite savo ir įveskite jos adresą, kad būtų užpildytos trys žemiau esančios nuorodos. Vis dar galite jas pakeisti.',
+    'billing_address' => 'Jūsų atsiskaitymo sistemos adresas',
 ];

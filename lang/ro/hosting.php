@@ -18,4 +18,7 @@ return [
     'upgrade' => 'Îmbunătățiți acest server',
     'client_area_link' => 'Zona clientului',
     'order_link' => 'Comandă un server',
+    'billing_system' => 'Sistem de facturare',
+    'billing_system_help' => 'Alege-l pe al tău și introdu adresa lui pentru a completa cele trei linkuri de mai jos. Le poți modifica în continuare.',
+    'billing_address' => 'Adresa sistemului tău de facturare',
 ];

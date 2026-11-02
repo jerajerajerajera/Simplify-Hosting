@@ -18,4 +18,7 @@ return [
     'upgrade' => 'Päivitä tämä palvelin isompaan',
     'client_area_link' => 'Asiakasalue',
     'order_link' => 'Tilaa palvelin',
+    'billing_system' => 'Laskutusjärjestelmä',
+    'billing_system_help' => 'Valitse omasi ja anna sen osoite, niin alla olevat kolme linkkiä täytetään. Voit yhä muuttaa niitä.',
+    'billing_address' => 'Laskutusjärjestelmäsi osoite',
 ];

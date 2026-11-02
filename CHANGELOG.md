@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Pick your billing system (WHMCS, Paymenter or Blesta) and enter its address: Hosting fills in the billing, client area and order links. You can still change them.
+
 ## 1.0.3
 
 - With a Simplify version newer than 1.5.1, Client area is back as an icon in Simplify's account menu, as in PelicanSimplify 0.7.0. With older versions nothing changes.

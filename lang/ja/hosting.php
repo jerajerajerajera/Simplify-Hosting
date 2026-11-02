@@ -18,4 +18,7 @@ return [
     'upgrade' => 'このサーバーをアップグレード',
     'client_area_link' => 'クライアントエリア',
     'order_link' => 'サーバーを注文',
+    'billing_system' => '請求システム',
+    'billing_system_help' => 'お使いのシステムを選び、そのアドレスを入力すると下の3つのリンクが入力されます。あとから変更もできます。',
+    'billing_address' => '請求システムのアドレス',
 ];

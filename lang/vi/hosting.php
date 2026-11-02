@@ -18,4 +18,7 @@ return [
     'upgrade' => 'Nâng cấp máy chủ này',
     'client_area_link' => 'Khu vực khách hàng',
     'order_link' => 'Đặt mua máy chủ',
+    'billing_system' => 'Hệ thống thanh toán',
+    'billing_system_help' => 'Chọn hệ thống của bạn và nhập địa chỉ để điền ba liên kết bên dưới. Bạn vẫn có thể thay đổi chúng.',
+    'billing_address' => 'Địa chỉ hệ thống thanh toán của bạn',
 ];

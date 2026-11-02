@@ -18,6 +18,7 @@ use Simplify\Core\Filament\App\Pages\Overview;
 use Simplify\Core\Overview\Listing;
 use Simplify\Hosting\Filament\Admin\Pages\HostingSettings;
 use Simplify\Hosting\HostingAddon;
+use Simplify\Hosting\Services\BillingSystems;
 use Simplify\Hosting\Services\Settings;
 
 define('LARAVEL_START', microtime(true));
@@ -100,6 +101,15 @@ step('the settings save from the page and reject a link that is not https', func
     Settings::flush();
     must(Settings::get('client_area_url') === 'https://billing.example.com/clientarea' && Settings::get('host_mode') === true, 'the settings were not saved');
     Livewire::actingAs($admin)->test(HostingSettings::class)->set('data.order_url', 'http://plain.example.com')->call('save')->assertHasErrors(['data.order_url']);
+});
+step('picking a billing system fills in its links', function () use ($admin) {
+    Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('admin'));
+    Livewire::actingAs($admin)->test(HostingSettings::class)
+        ->set('data.billing_system', 'WHMCS')->set('data.billing_address', 'https://pay.example.com/')
+        ->assertSet('data.billing_url', 'https://pay.example.com/upgrade.php?type=package&id={external_id}')
+        ->assertSet('data.client_area_url', 'https://pay.example.com/clientarea.php')
+        ->assertSet('data.order_url', 'https://pay.example.com/cart.php');
+    must(BillingSystems::links('Paymenter', 'http://plain.example.com') === [] && BillingSystems::links('Other', 'https://a.example.com') === [], 'a link that is not https or an unknown system was filled in');
 });
 step('the add-on gives Simplify the billing link, the customer links and host mode', function () use ($customer) {
     if (! class_exists('Simplify\Core\Addons\Addon')) {

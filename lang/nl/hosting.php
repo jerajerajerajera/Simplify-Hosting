@@ -18,4 +18,7 @@ return [
     'upgrade' => 'Deze server upgraden',
     'client_area_link' => 'Klantportaal',
     'order_link' => 'Server bestellen',
+    'billing_system' => 'Factuursysteem',
+    'billing_system_help' => 'Kies het jouwe en vul het adres in om de drie links hieronder in te vullen. Je kunt ze daarna nog aanpassen.',
+    'billing_address' => 'Adres van je factuursysteem',
 ];

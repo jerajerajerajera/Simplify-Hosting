@@ -18,4 +18,7 @@ return [
     'upgrade' => 'Upgrade this server',
     'client_area_link' => 'Client area',
     'order_link' => 'Order a server',
+    'billing_system' => 'Billing system',
+    'billing_system_help' => 'Pick yours and enter its address to fill in the three links below. You can still change them.',
+    'billing_address' => 'Address of your billing system',
 ];

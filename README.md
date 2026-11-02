@@ -13,13 +13,14 @@ inside Simplify and it shows up in Simplify's add-on list.
 
 1. Install the plugin from the Pelican Hub.
 2. Open **Admin → Simplify → Hosting**.
-3. Fill in the links you use and press **Save**.
+3. Pick your billing system (WHMCS, Paymenter or Blesta) and enter its address: the links are filled in for you.
+   Change them or fill them in yourself, and press **Save**.
 
 ## What it adds
 
 | Setting | Without Simplify | With Simplify |
 | --- | --- | --- |
-| **Billing link** | "Upgrade this server" on a server's console | "Upgrade this server" in the ⋯ menu of the server page |
+| **Billing link** | "Upgrade this server" on a server's console | "Upgrade this server" in the ⋯ menu of the server page; on a suspended server "Pay invoice", also on the server's card (Simplify 1.5.5 and newer) |
 | **Client area link** | "Client area" in everyone's account menu | also an icon in Simplify's account menu, and beside a greeting above a customer's servers |
 | **Order link** | | "Order a server" beside that greeting |
 | **Open in host mode** | | admins of a panel with more than one node start in host mode, until they pick a mode |

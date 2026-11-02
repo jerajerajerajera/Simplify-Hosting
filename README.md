@@ -35,6 +35,10 @@ itself and sends nothing anywhere: it only shows your links.
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/admin-overview-account-desktop-dark.png">
   <img src="docs/screenshots/admin-overview-account-desktop-light.png" alt="Client area in Simplify's account menu" width="720">
 </picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/suspended-card-desktop-dark.png">
+  <img src="docs/screenshots/suspended-card-desktop-light.png" alt="Pay invoice on a suspended server's card" width="260">
+</picture>
 
 ## Coming from Simplify 1.0
 

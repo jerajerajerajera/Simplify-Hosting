@@ -18,4 +18,7 @@ return [
     'upgrade' => 'Mejorar este servidor',
     'client_area_link' => 'Área de clientes',
     'order_link' => 'Pedir un servidor',
+    'billing_system' => 'Sistema de facturación',
+    'billing_system_help' => 'Elige el tuyo e introduce su dirección para rellenar los tres enlaces de abajo. Aún puedes cambiarlos.',
+    'billing_address' => 'Dirección de tu sistema de facturación',
 ];

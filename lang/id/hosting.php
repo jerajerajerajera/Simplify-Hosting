@@ -18,4 +18,7 @@ return [
     'upgrade' => 'Tingkatkan server ini',
     'client_area_link' => 'Area klien',
     'order_link' => 'Pesan server',
+    'billing_system' => 'Sistem penagihan',
+    'billing_system_help' => 'Pilih milik Anda dan masukkan alamatnya untuk mengisi tiga tautan di bawah. Anda masih bisa mengubahnya.',
+    'billing_address' => 'Alamat sistem penagihan Anda',
 ];

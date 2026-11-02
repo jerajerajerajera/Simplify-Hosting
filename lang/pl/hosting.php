@@ -18,4 +18,7 @@ return [
     'upgrade' => 'Ulepsz ten serwer',
     'client_area_link' => 'Panel klienta',
     'order_link' => 'Zamów serwer',
+    'billing_system' => 'System rozliczeń',
+    'billing_system_help' => 'Wybierz swój i podaj jego adres, aby wypełnić trzy linki poniżej. Nadal możesz je zmienić.',
+    'billing_address' => 'Adres Twojego systemu rozliczeń',
 ];

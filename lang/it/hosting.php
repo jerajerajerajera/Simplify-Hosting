@@ -18,4 +18,7 @@ return [
     'upgrade' => 'Potenzia questo server',
     'client_area_link' => 'Area clienti',
     'order_link' => 'Ordina un server',
+    'billing_system' => 'Sistema di fatturazione',
+    'billing_system_help' => 'Scegli il tuo e inserisci il suo indirizzo per compilare i tre link qui sotto. Puoi ancora modificarli.',
+    'billing_address' => 'Indirizzo del tuo sistema di fatturazione',
 ];

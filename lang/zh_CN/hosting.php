@@ -18,4 +18,7 @@ return [
     'upgrade' => '升级此服务器',
     'client_area_link' => '客户中心',
     'order_link' => '订购服务器',
+    'billing_system' => '计费系统',
+    'billing_system_help' => '选择你的计费系统并输入其地址，即可填写下面三个链接。之后仍可修改。',
+    'billing_address' => '计费系统的地址',
 ];

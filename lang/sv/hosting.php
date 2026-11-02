@@ -18,4 +18,7 @@ return [
     'upgrade' => 'Uppgradera den här servern',
     'client_area_link' => 'Kundportal',
     'order_link' => 'Beställ en server',
+    'billing_system' => 'Faktureringssystem',
+    'billing_system_help' => 'Välj ditt och ange adressen för att fylla i de tre länkarna nedan. Du kan fortfarande ändra dem.',
+    'billing_address' => 'Adress till ditt faktureringssystem',
 ];

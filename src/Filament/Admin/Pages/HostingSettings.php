@@ -6,14 +6,18 @@ namespace Simplify\Hosting\Filament\Admin\Pages;
 
 use BackedEnum;
 use Filament\Actions\Action;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Schemas\Schema;
+use Simplify\Hosting\Services\BillingSystems;
 use Simplify\Hosting\Services\Settings;
 
 /**
@@ -85,8 +89,19 @@ final class HostingSettings extends Page implements HasSchemas
         $link = fn (string $key, string $placeholder, string $regex = Settings::LINK) => TextInput::make($key.'_url')
             ->label(__(self::T.$key))->helperText(__(self::T.$key.'_help'))->placeholder($placeholder)->maxLength(255)->regex($regex);
 
+        // Not saved: picking a billing system and its address fills in the three links below.
+        $fill = function (Get $get, Set $set): void {
+            foreach (BillingSystems::links($get('billing_system'), $get('billing_address')) as $key => $url) {
+                $set($key, $url);
+            }
+        };
+
         return [
             Section::make(__(self::T.'customers'))->schema([
+                Select::make('billing_system')->label(__(self::T.'billing_system'))->helperText(__(self::T.'billing_system_help'))
+                    ->options(array_combine($names = array_keys(BillingSystems::LINKS), $names))->dehydrated(false)->live()->afterStateUpdated($fill),
+                TextInput::make('billing_address')->label(__(self::T.'billing_address'))->placeholder('https://billing.example.com')->maxLength(200)
+                    ->regex(Settings::LINK)->dehydrated(false)->live(onBlur: true)->afterStateUpdated($fill),
                 $link('billing', 'https://billing.example.com/clientarea.php?action=productdetails&id={external_id}', Settings::BILLING),
                 $link('client_area', 'https://billing.example.com/clientarea.php'),
                 $link('order', 'https://billing.example.com/store'),

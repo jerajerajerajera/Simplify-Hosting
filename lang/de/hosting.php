@@ -18,4 +18,7 @@ return [
     'upgrade' => 'Diesen Server upgraden',
     'client_area_link' => 'Kundenbereich',
     'order_link' => 'Server bestellen',
+    'billing_system' => 'Abrechnungssystem',
+    'billing_system_help' => 'Wähle deins und gib seine Adresse ein, um die drei Links unten auszufüllen. Du kannst sie danach noch ändern.',
+    'billing_address' => 'Adresse deines Abrechnungssystems',
 ];

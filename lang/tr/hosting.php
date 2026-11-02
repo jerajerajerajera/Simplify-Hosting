@@ -18,4 +18,7 @@ return [
     'upgrade' => 'Bu sunucuyu yükselt',
     'client_area_link' => 'Müşteri alanı',
     'order_link' => 'Sunucu sipariş et',
+    'billing_system' => 'Faturalama sistemi',
+    'billing_system_help' => 'Sizinkini seçin ve adresini girin; aşağıdaki üç bağlantı doldurulur. Bunları yine de değiştirebilirsiniz.',
+    'billing_address' => 'Faturalama sisteminizin adresi',
 ];

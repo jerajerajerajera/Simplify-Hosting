@@ -18,4 +18,7 @@ return [
     'upgrade' => '이 서버 업그레이드',
     'client_area_link' => '고객 영역',
     'order_link' => '서버 주문',
+    'billing_system' => '결제 시스템',
+    'billing_system_help' => '사용 중인 시스템을 고르고 주소를 입력하면 아래 세 링크가 채워집니다. 이후에도 바꿀 수 있습니다.',
+    'billing_address' => '결제 시스템 주소',
 ];

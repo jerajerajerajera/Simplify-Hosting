@@ -18,4 +18,7 @@ return [
     'upgrade' => 'Szerver bővítése',
     'client_area_link' => 'Ügyfélkapu',
     'order_link' => 'Szerver rendelése',
+    'billing_system' => 'Számlázási rendszer',
+    'billing_system_help' => 'Válaszd ki a sajátodat és add meg a címét, így kitöltődik az alábbi három link. Utána még módosíthatod őket.',
+    'billing_address' => 'A számlázási rendszered címe',
 ];

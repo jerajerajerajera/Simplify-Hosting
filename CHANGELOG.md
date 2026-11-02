@@ -1,9 +1,9 @@
 # Changelog
 
-## Unreleased
+## 1.0.4
 
 - Pick your billing system (WHMCS, Paymenter or Blesta) and enter its address: Hosting fills in the billing, client area and order links. You can still change them.
-- A suspended server offers its customer Pay invoice (the billing link) instead of Upgrade this server. Simplify shows it on the server's card from the version after 1.5.4; with older versions nothing changes there.
+- A suspended server offers its customer Pay invoice (the billing link) instead of Upgrade this server. Simplify 1.5.5 and newer show it on the server's card; with older versions nothing changes there.
 
 ## 1.0.3
 

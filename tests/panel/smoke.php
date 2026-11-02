@@ -180,6 +180,18 @@ if (! $simplify) {
         must($response->getStatusCode() === 200, 'HTTP '.$response->getStatusCode().' on the overview');
         must(shows($response->getContent(), 'https://billing.example.com/store'), 'the overview does not show the order link');
     });
+    // W1-A: a suspended server's card offers its owner Pay invoice; admins see the card as before (Simplify 1.5.5+).
+    step('with Simplify a suspended server offers its owner Pay invoice', function () use ($admin, $customer, $server) {
+        $status = $server->status;
+        $server->forceFill(['status' => ServerState::Suspended])->save();
+        try {
+            $links = Listing::one($customer, $server)['suspended'] ?? null;
+            must(($links[0]['label'] ?? null) === 'Pay invoice' && $links[0]['url'] === 'https://billing.example.com/s/'.$server->uuid && $links[0]['primary'], 'the suspended card has no Pay invoice: '.json_encode($links));
+            must(Listing::one($admin, $server)['suspended'] === [], 'an admin gets Pay invoice on the card');
+        } finally {
+            $server->forceFill(['status' => $status])->save();
+        }
+    });
     step('with Simplify an admin gets no greeting and starts in host mode', function () use ($admin) {
         Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('app'));
         $boot = Livewire::actingAs($admin)->test(Overview::class)->instance()->initial();

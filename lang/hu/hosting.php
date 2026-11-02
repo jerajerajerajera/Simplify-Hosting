@@ -16,6 +16,7 @@ return [
     'save' => 'Mentés',
     'saved' => 'Beállítások mentve',
     'upgrade' => 'Szerver bővítése',
+    'pay_invoice' => 'Számla kifizetése',
     'client_area_link' => 'Ügyfélkapu',
     'order_link' => 'Szerver rendelése',
     'billing_system' => 'Számlázási rendszer',

@@ -16,6 +16,7 @@ return [
     'save' => 'Lagre',
     'saved' => 'Innstillinger lagret',
     'upgrade' => 'Oppgrader denne serveren',
+    'pay_invoice' => 'Betal faktura',
     'client_area_link' => 'Kundeområde',
     'order_link' => 'Bestill en server',
     'billing_system' => 'Faktureringssystem',

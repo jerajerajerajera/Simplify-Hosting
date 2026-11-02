@@ -16,6 +16,7 @@ return [
     'save' => 'Opslaan',
     'saved' => 'Instellingen opgeslagen',
     'upgrade' => 'Deze server upgraden',
+    'pay_invoice' => 'Factuur betalen',
     'client_area_link' => 'Klantportaal',
     'order_link' => 'Server bestellen',
     'billing_system' => 'Factuursysteem',

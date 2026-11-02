@@ -16,6 +16,7 @@ return [
     'save' => 'Kaydet',
     'saved' => 'Ayarlar kaydedildi',
     'upgrade' => 'Bu sunucuyu yükselt',
+    'pay_invoice' => 'Faturayı öde',
     'client_area_link' => 'Müşteri alanı',
     'order_link' => 'Sunucu sipariş et',
     'billing_system' => 'Faturalama sistemi',

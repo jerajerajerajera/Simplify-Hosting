@@ -16,6 +16,7 @@ return [
     'save' => 'حفظ',
     'saved' => 'حُفظت الإعدادات',
     'upgrade' => 'ترقية هذا الخادم',
+    'pay_invoice' => 'ادفع الفاتورة',
     'client_area_link' => 'منطقة العملاء',
     'order_link' => 'اطلب خادمًا',
     'billing_system' => 'نظام الفوترة',

@@ -16,6 +16,7 @@ return [
     'save' => 'Enregistrer',
     'saved' => 'Paramètres enregistrés',
     'upgrade' => 'Améliorer ce serveur',
+    'pay_invoice' => 'Payer la facture',
     'client_area_link' => 'Espace client',
     'order_link' => 'Commander un serveur',
     'billing_system' => 'Système de facturation',

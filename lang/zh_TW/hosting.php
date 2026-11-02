@@ -16,6 +16,7 @@ return [
     'save' => '儲存',
     'saved' => '設定已儲存',
     'upgrade' => '升級此伺服器',
+    'pay_invoice' => '支付帳單',
     'client_area_link' => '客戶專區',
     'order_link' => '訂購伺服器',
     'billing_system' => '計費系統',

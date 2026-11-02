@@ -16,6 +16,7 @@ return [
     'save' => '저장',
     'saved' => '설정을 저장했습니다',
     'upgrade' => '이 서버 업그레이드',
+    'pay_invoice' => '청구서 결제',
     'client_area_link' => '고객 영역',
     'order_link' => '서버 주문',
     'billing_system' => '결제 시스템',

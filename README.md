@@ -23,7 +23,7 @@ inside Simplify and it shows up in Simplify's add-on list.
 | **Billing link** | "Upgrade this server" on a server's console | "Upgrade this server" in the ⋯ menu of the server page; on a suspended server "Pay invoice", also on the server's card (Simplify 1.5.5 and newer) |
 | **Client area link** | "Client area" in everyone's account menu | also an icon in Simplify's account menu, and beside a greeting above a customer's servers |
 | **Order link** | | "Order a server" beside that greeting |
-| **Open in host mode** | | admins of a panel with more than one node start in host mode, until they pick a mode |
+| **Open in host mode** | | admins of a panel with more than one node start on Simplify's Admin page once per session (Simplify 1.5.6 and newer); with older Simplify versions they start in host mode, until they pick a mode |
 
 The billing link may hold `{uuid}` and `{external_id}`, which become the server's own values, for example
 `https://billing.example.com/clientarea.php?action=productdetails&id={external_id}`.

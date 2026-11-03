@@ -38,6 +38,10 @@ jobs:
           - pelican: '1.0.0-rc.2'
             php: '8.4'
             simplify: 'v1.5.5'
+          # Simplify 1.5.6 and newer: admins of a large panel start on the Admin page (add-on API 5).
+          - pelican: '1.0.0-rc.2'
+            php: '8.4'
+            simplify: 'main'
     name: panel-smoke (Pelican ${{ matrix.pelican }}${{ matrix.simplify && format(', Simplify {0}', matrix.simplify) || '' }})
     steps:
       - uses: actions/checkout@v4

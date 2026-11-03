@@ -1,5 +1,5 @@
 name: Release
-# A new version in plugin.json on main (not a -dev version) becomes GitHub Release v<version> with its zip, for upload to the Pelican Hub.
+# A new version in plugin.json on main (not a -dev version; a version with a dash becomes a prerelease) becomes GitHub Release v<version> with its zip, for upload to the Pelican Hub.
 # The panel never reads this release: updates come from the Hub only.
 on:
   push:
@@ -21,4 +21,6 @@ jobs:
           if gh release view "v$version" >/dev/null 2>&1; then echo "Release v$version already exists."; exit 0; fi
           zip=$(python3 scripts/build-package.py)
           awk -v head="## $version" 'index($0, head) == 1 {on = 1; next} on && /^## / {exit} on' CHANGELOG.md > notes.md
-          gh release create "v$version" "$zip" --target "$GITHUB_SHA" --title "Simplify Hosting $version" --notes-file notes.md --latest
+          # A version with a dash (2.0.0-beta.1) is a prerelease: never marked as the latest release.
+          case "$version" in *-*) kind=(--prerelease --latest=false);; *) kind=(--latest);; esac
+          gh release create "v$version" "$zip" --target "$GITHUB_SHA" --title "Simplify Hosting $version" --notes-file notes.md "${kind[@]}"

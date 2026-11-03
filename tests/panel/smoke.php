@@ -198,7 +198,7 @@ if (! $simplify) {
         Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('app'));
         $boot = Livewire::actingAs($admin)->test(Overview::class)->instance()->initial();
         // Simplify 1.5.6 and newer have no host mode of their own: an admin starts on the Admin page instead (below).
-        must($boot['customer'] === [] && ($boot['host_mode_auto'] ?? true) === true, 'an admin gets the greeting or no host mode: '.json_encode([$boot['customer'], $boot['host_mode_auto']]));
+        must($boot['customer'] === [] && ($boot['host_mode_auto'] ?? true) === true, 'an admin gets the greeting or no host mode: '.json_encode([$boot['customer'], $boot['host_mode_auto'] ?? null]));
     });
 }
 

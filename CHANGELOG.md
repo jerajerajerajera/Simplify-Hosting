@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0-beta.2
+
+- First version on the Hub, as a beta. The same as 2.0.0-beta.1.
+
 ## 2.0.0-beta.1
 
 - First version on the Hub.

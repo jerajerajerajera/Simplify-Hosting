@@ -1,7 +1,8 @@
 # Changelog
 
-## Unreleased
+## 2.0.0-beta.1
 
+- First version on the Hub.
 - With Simplify 1.5.6 and newer, "Open in host mode" makes admins of a panel with more than one node start on Simplify's Admin page (Pelican's Health page), once per session. With older Simplify versions it opens Simplify's host mode as before.
 
 ## 1.0.4

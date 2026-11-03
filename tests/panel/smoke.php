@@ -5,6 +5,7 @@
 // php plugins/simplify-hosting/tests/panel/smoke.php
 use App\Enums\ServerState;
 use App\Filament\Server\Pages\Console;
+use App\Models\Node;
 use App\Models\Role;
 use App\Models\Server;
 use App\Models\User;
@@ -15,6 +16,7 @@ use Illuminate\Foundation\Testing\Concerns\InteractsWithSession;
 use Illuminate\Foundation\Testing\Concerns\MakesHttpRequests;
 use Illuminate\Testing\TestResponse;
 use Livewire\Livewire;
+use Simplify\Core\Addons\Addon;
 use Simplify\Core\Filament\App\Pages\Overview;
 use Simplify\Core\Overview\Listing;
 use Simplify\Hosting\Filament\Admin\Pages\HostingSettings;
@@ -195,7 +197,34 @@ if (! $simplify) {
     step('with Simplify an admin gets no greeting and starts in host mode', function () use ($admin) {
         Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('app'));
         $boot = Livewire::actingAs($admin)->test(Overview::class)->instance()->initial();
-        must($boot['customer'] === [] && $boot['host_mode_auto'] === true, 'an admin gets the greeting or no host mode: '.json_encode([$boot['customer'], $boot['host_mode_auto']]));
+        // Simplify 1.5.6 and newer have no host mode of their own: an admin starts on the Admin page instead (below).
+        must($boot['customer'] === [] && ($boot['host_mode_auto'] ?? true) === true, 'an admin gets the greeting or no host mode: '.json_encode([$boot['customer'], $boot['host_mode_auto'] ?? null]));
+    });
+}
+
+// With add-on API 5 (Simplify 1.5.6+) an admin of a panel with more than one node starts on the Admin page once per session.
+if ($simplify && defined('Simplify\Core\Addons\Addon::API') && Addon::API >= 5) {
+    step('with Simplify an admin of a large panel starts on the Admin page once, a customer never', function () use ($admin, $customer) {
+        if (Node::query()->count() < 2) {
+            Node::factory()->create(['name' => 'Smoke hosting second node']);
+        }
+        Settings::save([...array_combine(Settings::FIELDS, array_map(Settings::get(...), Settings::FIELDS)), 'host_mode' => true]);
+        $overview = Overview::getUrl(panel: 'app');
+        $client = new class(app())
+        {
+            use InteractsWithAuthentication, InteractsWithSession, MakesHttpRequests;
+
+            public function __construct(public $app) {}
+        };
+        $first = $client->actingAs($admin)->get($overview);
+        $health = Filament\Facades\Filament::getPanel('admin')->getUrl();
+        must($first->isRedirect() && str_starts_with((string) $first->headers->get('Location'), rtrim($health, '/')), 'an admin does not start on the Admin page: '.$first->getStatusCode().' '.$first->headers->get('Location'));
+        // The same session: the browser sends its session cookie back.
+        $session = $first->getCookie(config('session.cookie'))?->getValue();
+        must($session !== null, 'the first visit has no session');
+        $again = $client->actingAs($admin)->withCookie(config('session.cookie'), $session)->get($overview);
+        must($again->getStatusCode() === 200, 'the overview keeps sending an admin to the Admin page: '.$again->getStatusCode().' '.$again->headers->get('Location'));
+        must((new HostingAddon)->startUrl($customer) === null, 'a customer starts on the Admin page');
     });
 }
 

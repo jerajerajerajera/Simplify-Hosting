@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0-beta.4
+
+- Version aligned with Simplify 2.0.0-beta.4.
+
 ## 2.0.0-beta.2
 
 - First version on the Hub, as a beta. The same as 2.0.0-beta.1.

@@ -2,7 +2,8 @@
 
 ## Unreleased
 
-- Checks: PHPStan (level 5) runs in CI.
+- Uninstalling keeps the hoster's settings: installing again brings them back.
+- Checks: PHPStan (level 5) runs in CI, with no findings left. CI also tests the update from 2.0.0-beta.1 with every setting filled in, uninstalling and installing again, and going back to the previous release.
 
 ## 2.0.0-beta.4
 

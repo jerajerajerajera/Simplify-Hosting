@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Checks: PHPStan (level 5) runs in CI.
+
 ## 2.0.0-beta.4
 
 - Version aligned with Simplify 2.0.0-beta.4.

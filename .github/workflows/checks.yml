@@ -105,8 +105,8 @@ jobs:
         # Uninstalling keeps the hoster's settings; Pelican's own pages still open without the plugin.
         run: |
           php plugins/simplify-hosting/tests/panel/settings.php fill
-          php artisan p:plugin:uninstall simplify-hosting
-          php artisan p:plugin:list | grep -E 'Simplify Hosting .*\| not installed' || { echo 'Simplify Hosting did not uninstall'; exit 1; }
+          php artisan p:plugin:uninstall simplify-hosting --no-interaction
+          php artisan p:plugin:list | grep -E 'Simplify Hosting .*\| not_installed' || { echo 'Simplify Hosting did not uninstall'; exit 1; }
           php plugins/simplify-hosting/tests/panel/settings.php check
           php artisan tinker --execute="\$r = app(Illuminate\Contracts\Http\Kernel::class)->handle(Illuminate\Http\Request::create('/login')); echo 'login '.\$r->getStatusCode();" | tee login.txt
           grep -qx 'login 200' login.txt || { echo 'Pelican does not open without Simplify Hosting'; exit 1; }

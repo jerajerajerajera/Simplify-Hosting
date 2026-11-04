@@ -6,6 +6,7 @@ namespace Simplify\Hosting\Providers;
 
 use App\Enums\HeaderActionPosition;
 use App\Filament\Server\Pages\Console;
+use App\Models\Server;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
@@ -28,7 +29,15 @@ final class HostingServiceProvider extends ServiceProvider
         }
         Console::registerCustomHeaderActions(HeaderActionPosition::Before, Action::make('simplify-hosting-billing')
             ->label(fn () => __('simplify-hosting::hosting.upgrade'))->icon('tabler-receipt')->color('gray')->button()
-            ->url(fn () => ($server = Filament::getTenant()) ? Settings::billing($server) : null, shouldOpenInNewTab: true)
-            ->visible(fn () => ($server = Filament::getTenant()) && Settings::billing($server) !== null));
+            ->url(fn () => self::billing(), shouldOpenInNewTab: true)
+            ->visible(fn () => self::billing() !== null));
+    }
+
+    /** The billing page of the server this console belongs to. */
+    private static function billing(): ?string
+    {
+        $server = Filament::getTenant();
+
+        return $server instanceof Server ? Settings::billing($server) : null;
     }
 }

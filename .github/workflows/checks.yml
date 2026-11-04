@@ -96,14 +96,8 @@ jobs:
         # After the smoke: installing larastan brings PHPUnit into the panel, which changes how Livewire's test helpers behave.
         run: |
           composer require --dev larastan/larastan --no-interaction --no-progress --quiet
-          # Without a baseline yet: the first run writes one and prints it, to commit as the starting point (every
-          # finding in it is on the clean-up list; new code must be clean).
-          if [ -f plugins/simplify-hosting/phpstan-baseline.neon ]; then
-            vendor/bin/phpstan analyse --configuration plugins/simplify-hosting/phpstan.neon --memory-limit 1G --no-progress --error-format=github
-          else
-            vendor/bin/phpstan analyse --configuration plugins/simplify-hosting/phpstan.neon --memory-limit 1G --no-progress --generate-baseline=plugins/simplify-hosting/phpstan-baseline.neon --allow-empty-baseline
-            echo '::group::phpstan-baseline.neon'; cat plugins/simplify-hosting/phpstan-baseline.neon; echo '::endgroup::'
-          fi
+          # No baseline: every finding fails the run, so the code stays at zero.
+          vendor/bin/phpstan analyse --configuration plugins/simplify-hosting/phpstan.neon --memory-limit 1G --no-progress --error-format=github
       - name: Laravel log
         if: failure()
         run: grep -h -E '^\[[0-9-]+ [0-9:]+\]' panel/storage/logs/*.log | cut -c1-600 | tail -n 12 || true

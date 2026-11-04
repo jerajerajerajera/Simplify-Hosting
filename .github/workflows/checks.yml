@@ -88,9 +88,7 @@ jobs:
           php ../plugin/tests/panel/settings.php fill
       - name: Update to this version of Simplify Hosting
         run: |
-          rm -rf panel/plugins/simplify-hosting
-          mkdir -p panel/plugins/simplify-hosting
-          tar -C plugin --exclude=.git --exclude=dist -cf - . | tar -C panel/plugins/simplify-hosting -xf -
+          bash plugin/tests/panel/swap.sh plugin
           cd panel
           # As the Hub's update does it (PluginService::updatePlugin): new files, then the install steps without enabling again.
           php artisan tinker --execute="App\Models\Plugin::refreshRows(); app(App\Services\Helpers\PluginService::class)->installPlugin(App\Models\Plugin::findOrFail('simplify-hosting'), false);"
@@ -122,18 +120,15 @@ jobs:
         run: |
           tag="$(gh release list --repo "${{ github.repository }}" --limit 1 --json tagName --jq '.[0].tagName')"
           echo "previous release: $tag"
-          cp plugin/tests/panel/settings.php settings.php
-          rm -rf panel/plugins/simplify-hosting
-          git clone --quiet --depth 1 --branch "$tag" "https://github.com/${{ github.repository }}.git" panel/plugins/simplify-hosting
-          rm -rf panel/plugins/simplify-hosting/.git
+          git clone --quiet --depth 1 --branch "$tag" "https://github.com/${{ github.repository }}.git" previous
+          bash plugin/tests/panel/swap.sh previous
           cd panel
           php artisan tinker --execute="App\Models\Plugin::refreshRows(); app(App\Services\Helpers\PluginService::class)->installPlugin(App\Models\Plugin::findOrFail('simplify-hosting'), false);"
-          php ../settings.php check
+          php ../plugin/tests/panel/settings.php check
           php plugins/simplify-hosting/tests/panel/smoke.php | tee back.txt
           grep -q '^All steps passed$' back.txt || { echo "$tag does not open its pages after this version"; exit 1; }
           # This version's files again, for PHPStan below.
-          cd .. && rm -rf panel/plugins/simplify-hosting && mkdir -p panel/plugins/simplify-hosting
-          tar -C plugin --exclude=.git --exclude=dist -cf - . | tar -C panel/plugins/simplify-hosting -xf -
+          cd .. && bash plugin/tests/panel/swap.sh plugin
       - name: PHPStan (level 5, in the panel)
         if: matrix.simplify == 'main' # the add-on's classes extend the core's
         working-directory: panel

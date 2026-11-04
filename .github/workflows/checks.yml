@@ -77,19 +77,63 @@ jobs:
           cd panel
           php artisan p:plugin:install simplify
           php artisan p:plugin:list | grep -E '\| Simplify .*\| enabled' || { echo 'Simplify did not install'; exit 1; }
-      - name: Install Simplify Hosting
+      # The way panels update: the first Hub version (2.0.0-beta.1) with every setting filled in, then this version over it.
+      - name: Install Simplify Hosting 2.0.0-beta.1 with its settings filled in
         run: |
+          git clone --quiet --depth 1 --branch v2.0.0-beta.1 "https://github.com/${{ github.repository }}.git" panel/plugins/simplify-hosting
+          rm -rf panel/plugins/simplify-hosting/.git
+          cd panel
+          php artisan p:plugin:install simplify-hosting
+          php artisan p:plugin:list | grep -E 'Simplify Hosting .*\| enabled' || { echo 'Simplify Hosting 2.0.0-beta.1 did not install'; exit 1; }
+          php ../plugin/tests/panel/settings.php fill
+      - name: Update to this version of Simplify Hosting
+        run: |
+          rm -rf panel/plugins/simplify-hosting
           mkdir -p panel/plugins/simplify-hosting
           tar -C plugin --exclude=.git --exclude=dist -cf - . | tar -C panel/plugins/simplify-hosting -xf -
           cd panel
-          php artisan p:plugin:install simplify-hosting
+          # As the Hub's update does it (PluginService::updatePlugin): new files, then the install steps without enabling again.
+          php artisan tinker --execute="App\Models\Plugin::refreshRows(); app(App\Services\Helpers\PluginService::class)->installPlugin(App\Models\Plugin::findOrFail('simplify-hosting'), false);"
           php artisan p:plugin:list | tee plugins.txt
-          grep -E 'Simplify Hosting .*\| enabled' plugins.txt || { echo 'Simplify Hosting did not install'; exit 1; }
+          grep -E 'Simplify Hosting .*\| enabled' plugins.txt || { echo 'Simplify Hosting did not update'; exit 1; }
+          php ../plugin/tests/panel/settings.php check
       - name: Open the pages
         working-directory: panel
         run: |
           php plugins/simplify-hosting/tests/panel/smoke.php | tee smoke.txt
           grep -q '^All steps passed$' smoke.txt
+      - name: Uninstall and install again
+        working-directory: panel
+        # Uninstalling keeps the hoster's settings; Pelican's own pages still open without the plugin.
+        run: |
+          php plugins/simplify-hosting/tests/panel/settings.php fill
+          php artisan p:plugin:uninstall simplify-hosting
+          php artisan p:plugin:list | grep -E 'Simplify Hosting .*\| not installed' || { echo 'Simplify Hosting did not uninstall'; exit 1; }
+          php plugins/simplify-hosting/tests/panel/settings.php check
+          php artisan tinker --execute="\$r = app(Illuminate\Contracts\Http\Kernel::class)->handle(Illuminate\Http\Request::create('/login')); echo 'login '.\$r->getStatusCode();" | tee login.txt
+          grep -qx 'login 200' login.txt || { echo 'Pelican does not open without Simplify Hosting'; exit 1; }
+          php artisan p:plugin:install simplify-hosting
+          php artisan p:plugin:list | grep -E 'Simplify Hosting .*\| enabled' || { echo 'Simplify Hosting did not install again'; exit 1; }
+          php plugins/simplify-hosting/tests/panel/settings.php check
+      # A panel that goes back (the Beelink script puts the old folder back) keeps the newer tables: the previous release must still open its pages on them.
+      - name: Back to the previous release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="$(gh release list --repo "${{ github.repository }}" --limit 1 --json tagName --jq '.[0].tagName')"
+          echo "previous release: $tag"
+          cp plugin/tests/panel/settings.php settings.php
+          rm -rf panel/plugins/simplify-hosting
+          git clone --quiet --depth 1 --branch "$tag" "https://github.com/${{ github.repository }}.git" panel/plugins/simplify-hosting
+          rm -rf panel/plugins/simplify-hosting/.git
+          cd panel
+          php artisan tinker --execute="App\Models\Plugin::refreshRows(); app(App\Services\Helpers\PluginService::class)->installPlugin(App\Models\Plugin::findOrFail('simplify-hosting'), false);"
+          php ../settings.php check
+          php plugins/simplify-hosting/tests/panel/smoke.php | tee back.txt
+          grep -q '^All steps passed$' back.txt || { echo "$tag does not open its pages after this version"; exit 1; }
+          # This version's files again, for PHPStan below.
+          cd .. && rm -rf panel/plugins/simplify-hosting && mkdir -p panel/plugins/simplify-hosting
+          tar -C plugin --exclude=.git --exclude=dist -cf - . | tar -C panel/plugins/simplify-hosting -xf -
       - name: PHPStan (level 5, in the panel)
         if: matrix.simplify == 'main' # the add-on's classes extend the core's
         working-directory: panel

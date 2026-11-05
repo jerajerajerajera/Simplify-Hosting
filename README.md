@@ -12,7 +12,7 @@ inside Simplify and it shows up in Simplify's add-on list.
 ## Setup
 
 1. Install the plugin from the Pelican Hub.
-2. Open **Admin → Simplify → Hosting**.
+2. Open **Admin → Simplify → Hosting**. With Simplify 2.0 the settings are in **Simplify settings › Add-ons › Hosting**.
 3. Pick your billing system (WHMCS, Paymenter or Blesta) and enter its address: the links are filled in for you.
    Change them or fill them in yourself, and press **Save**.
 

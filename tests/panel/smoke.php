@@ -21,8 +21,10 @@ use Simplify\Core\Filament\App\Pages\Overview;
 use Simplify\Core\Overview\Listing;
 use Simplify\Hosting\Filament\Admin\Pages\HostingSettings;
 use Simplify\Hosting\HostingAddon;
+use Simplify\Hosting\Livewire\HostingSettingsForm;
 use Simplify\Hosting\Services\BillingSystems;
 use Simplify\Hosting\Services\Settings;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 define('LARAVEL_START', microtime(true));
 require getcwd().'/vendor/autoload.php';
@@ -90,26 +92,37 @@ step('settings page renders for a root admin', function () use ($admin) {
     $response = visit($admin, $url);
     must($response->getStatusCode() === 200, 'HTTP '.$response->getStatusCode().' at '.$url);
     // With Simplify the page never scrolls as a whole: the form takes the window's height and scrolls inside (1.0.2).
-    must(str_contains($response->getContent(), '<form wire:submit="save" class="s-fit">'), 'the settings form is not marked s-fit');
+    must(str_contains($response->getContent(), '<div class="s-fit">'), 'the settings form is not marked s-fit');
+    // Inside Simplify's settings the form sits in Simplify's own form: no <form> of its own, saved through the event.
+    must(str_contains($response->getContent(), 'data-simplify-save="save"') && ! str_contains($response->getContent(), 'wire:submit="save"'), 'the settings form is not the shared component');
 });
 step('settings page is closed to other users', function () use ($customer) {
     must(visit($customer, HostingSettings::getUrl(panel: 'admin'))->getStatusCode() !== 200, 'a customer can open the settings');
+    Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('admin'));
+    // Livewire's tester turns the abort in mount() into a 403 response instead of throwing it.
+    try {
+        Livewire::actingAs($customer)->test(HostingSettingsForm::class)->assertForbidden();
+        $closed = true;
+    } catch (HttpException $e) {
+        $closed = $e->getStatusCode() === 403;
+    }
+    must($closed, 'the settings form opens for a customer');
 });
 step('the settings save from the page and reject a link that is not https', function () use ($admin) {
     Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('admin'));
-    Livewire::actingAs($admin)->test(HostingSettings::class)
+    Livewire::actingAs($admin)->test(HostingSettingsForm::class)
         ->set('data.billing_url', 'https://billing.example.com/s/{uuid}')
         ->set('data.client_area_url', 'https://billing.example.com/clientarea')
         ->set('data.order_url', 'https://billing.example.com/store')
         ->set('data.host_mode', true)
-        ->call('save')->assertHasNoErrors();
+        ->dispatch('simplify-hosting-settings-save')->assertHasNoErrors();
     Settings::flush();
     must(Settings::get('client_area_url') === 'https://billing.example.com/clientarea' && Settings::get('host_mode') === true, 'the settings were not saved');
-    Livewire::actingAs($admin)->test(HostingSettings::class)->set('data.order_url', 'http://plain.example.com')->call('save')->assertHasErrors(['data.order_url']);
+    Livewire::actingAs($admin)->test(HostingSettingsForm::class)->set('data.order_url', 'http://plain.example.com')->call('save')->assertHasErrors(['data.order_url']);
 });
 step('picking a billing system fills in its links', function () use ($admin) {
     Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('admin'));
-    Livewire::actingAs($admin)->test(HostingSettings::class)
+    Livewire::actingAs($admin)->test(HostingSettingsForm::class)
         ->set('data.billing_system', 'WHMCS')->set('data.billing_address', 'https://pay.example.com/')
         ->assertSet('data.billing_url', 'https://pay.example.com/upgrade.php?type=package&id={external_id}')
         ->assertSet('data.client_area_url', 'https://pay.example.com/clientarea.php')
@@ -134,6 +147,10 @@ step('the add-on gives Simplify the billing link, the customer links and host mo
     $icons = array_map(fn ($link) => $link->icon, $addon->customerLinks($customer));
     must($icons === ['tabler-receipt', null], 'only the client area belongs in the account menu: '.json_encode($icons));
     must($addon->hostModeDefault() && $addon->id() === 'simplify-hosting' && $addon->description() !== '', 'the add-on is incomplete');
+    must($addon->settingsForm() === HostingSettingsForm::class, 'the add-on gives no settings form for Simplify settings');
+    // With a Simplify that shows add-on settings (API 8) the page leaves the menu; the settings link opens Hosting's section there.
+    $inCore = defined(Addon::class.'::API') && constant(Addon::class.'::API') >= 8;
+    must(HostingSettings::shouldRegisterNavigation() === ! $inCore, 'the settings page is '.($inCore ? 'still' : 'not').' in the menu');
     $tagged = array_map(fn ($a) => $a::class, iterator_to_array(app()->tagged('simplify.addons')));
     must(in_array(HostingAddon::class, $tagged, true), 'the add-on is not tagged');
 });

@@ -9,8 +9,10 @@ use App\Models\Server;
 use App\Models\User;
 use Simplify\Core\Addons\Addon;
 use Simplify\Core\Addons\Button;
+use Simplify\Core\Filament\Admin\Pages\Settings as SimplifySettings;
 use Simplify\Core\Overview\AdminTree;
 use Simplify\Hosting\Filament\Admin\Pages\HostingSettings;
+use Simplify\Hosting\Livewire\HostingSettingsForm;
 use Simplify\Hosting\Services\Settings;
 
 /**
@@ -41,7 +43,20 @@ final class HostingAddon extends Addon
 
     public function settingsUrl(): ?string
     {
-        return HostingSettings::canAccess() ? HostingSettings::getUrl(panel: 'admin') : null;
+        if (! HostingSettings::canAccess()) {
+            return null;
+        }
+        if (HostingSettings::inSimplifySettings() && method_exists(SimplifySettings::class, 'addonUrl')) {
+            return SimplifySettings::addonUrl($this->id());
+        }
+
+        return HostingSettings::getUrl(panel: 'admin');
+    }
+
+    /** Simplify settings › Add-ons shows this form (add-on API 8); older cores link to settingsUrl(). */
+    public function settingsForm(): string
+    {
+        return HostingSettingsForm::class;
     }
 
     public function serverLinks(Server $server): array
@@ -101,17 +116,17 @@ final class HostingAddon extends Addon
     /** In Simplify's setup (Simplify 1.3+, add-on API 3): the hoster's links and the host mode default. */
     public function setupFields(): array
     {
-        return HostingSettings::canAccess() ? HostingSettings::sections() : [];
+        return HostingSettingsForm::canAccess() ? HostingSettingsForm::sections() : [];
     }
 
     public function setupState(): array
     {
-        return HostingSettings::current();
+        return HostingSettingsForm::current();
     }
 
     public function saveSetup(array $state): void
     {
-        if (HostingSettings::canAccess()) {
+        if (HostingSettingsForm::canAccess()) {
             Settings::save($state);
         }
     }

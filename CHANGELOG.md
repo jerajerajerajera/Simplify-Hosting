@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.0.0-beta.5
+
 - The browser no longer fills a saved user name into the link fields, which made Save fail.
 - With Simplify 2.0 the settings are in Simplify settings › Add-ons, and Hosting no longer has its own item in the admin menu. Without Simplify, nothing changes.
 - Uninstalling keeps the hoster's settings: installing again brings them back.

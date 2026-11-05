@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 2.0.0-beta.10
+
+- Released together with Simplify 2.0.0-beta.10, which runs the new code right after an update (no "Unable to find component" error).
+
 ## 2.0.0-beta.5
 
 - The browser no longer fills a saved user name into the link fields, which made Save fail.

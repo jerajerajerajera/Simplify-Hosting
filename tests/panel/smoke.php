@@ -95,6 +95,8 @@ step('settings page renders for a root admin', function () use ($admin) {
     must(str_contains($response->getContent(), '<div class="s-fit">'), 'the settings form is not marked s-fit');
     // Inside Simplify's settings the form sits in Simplify's own form: no <form> of its own, saved through the event.
     must(str_contains($response->getContent(), 'data-simplify-save="save"') && ! str_contains($response->getContent(), 'wire:submit="save"'), 'the settings form is not the shared component');
+    // A browser must not fill a saved user name into a link field (Simplify settings › Add-ons also holds password fields).
+    must(substr_count($response->getContent(), 'autocomplete="off"') >= 4, 'the link fields allow the browser to fill them in');
 });
 step('settings page is closed to other users', function () use ($customer) {
     must(visit($customer, HostingSettings::getUrl(panel: 'admin'))->getStatusCode() !== 200, 'a customer can open the settings');

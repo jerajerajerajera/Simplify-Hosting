@@ -64,7 +64,9 @@ final class HostingSettingsForm extends Component implements HasSchemas
      */
     public static function sections(): array
     {
-        $link = fn (string $key, string $placeholder, string $regex = Settings::LINK) => TextInput::make($key.'_url')
+        // autocomplete off: in Simplify settings › Add-ons another add-on's password field sits on the same page, and
+        // a browser would fill the saved user name into the text field before it, which then fails as a link.
+        $link = fn (string $key, string $placeholder, string $regex = Settings::LINK) => TextInput::make($key.'_url')->autocomplete(false)
             ->label(__(self::T.$key))->helperText(__(self::T.$key.'_help'))->placeholder($placeholder)->maxLength(255)->regex($regex);
 
         // Not saved: picking a billing system and its address fills in the three links below.
@@ -78,7 +80,7 @@ final class HostingSettingsForm extends Component implements HasSchemas
             Section::make(__(self::T.'customers'))->schema([
                 Select::make('billing_system')->label(__(self::T.'billing_system'))->helperText(__(self::T.'billing_system_help'))
                     ->options(array_combine($names = array_keys(BillingSystems::LINKS), $names))->dehydrated(false)->live()->afterStateUpdated($fill),
-                TextInput::make('billing_address')->label(__(self::T.'billing_address'))->placeholder('https://billing.example.com')->maxLength(200)
+                TextInput::make('billing_address')->autocomplete(false)->label(__(self::T.'billing_address'))->placeholder('https://billing.example.com')->maxLength(200)
                     ->regex(Settings::LINK)->dehydrated(false)->live(onBlur: true)->afterStateUpdated($fill),
                 $link('billing', 'https://billing.example.com/clientarea.php?action=productdetails&id={external_id}', Settings::BILLING),
                 $link('client_area', 'https://billing.example.com/clientarea.php'),

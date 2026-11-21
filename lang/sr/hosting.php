@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Хостинг',
-    'description' => 'Линкови за наплату, зона за клијенте и режим домаћина за велике панеле.',
+    'description' => 'Linkovi za naplatu, korisnička zona za klijente i stranica Admin kao početna stranica za administratore velikih panela.',
     'customers' => 'За клијенте',
     'billing' => 'Линк за наплату',
     'billing_help' => 'Где клијенти управљају сервером или га надограђују, на пример ваша клијентска зона у WHMCS, Paymenter или HostBill. {uuid} и {external_id} постају вредности сервера.',
@@ -11,8 +11,8 @@ return [
     'order' => 'Веза за наруџбину',
     'order_help' => 'Где се наручује нови сервер. Клијенти га виде изнад својих сервера.',
     'admins' => 'За администраторе',
-    'host_mode' => 'Отварај у режиму домаћина',
-    'host_mode_help' => 'Администратори панела са више од једног Node-а почињу у режиму домаћина Simplify-а док сами не изаберу режим. Потребан је Simplify.',
+    'host_mode' => 'Administratori počinju na stranici Admin',
+    'host_mode_help' => 'Administratori panela sa više od jednog node-a počinju na stranici Admin u Simplify-ju (Health), jednom po sesiji. Potreban je Simplify.',
     'save' => 'Сачувај',
     'saved' => 'Подешавања сачувана',
     'upgrade' => 'Надогради овај сервер',

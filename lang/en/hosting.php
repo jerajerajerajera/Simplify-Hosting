@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Hosting',
-    'description' => 'Billing links, a client area for customers, and host mode for large panels.',
+    'description' => 'Billing links, a client area for customers, and the Admin page as the start page for admins of large panels.',
     'customers' => 'For customers',
     'billing' => 'Billing link',
     'billing_help' => 'Where customers manage or upgrade a server, for example your WHMCS, Paymenter or HostBill client area. {uuid} and {external_id} become the server\'s own values.',
@@ -11,8 +11,8 @@ return [
     'order' => 'Order link',
     'order_help' => 'Where people order a new server. Customers see it above their servers.',
     'admins' => 'For admins',
-    'host_mode' => 'Open in host mode',
-    'host_mode_help' => 'Admins of a panel with more than one node start in Simplify\'s host mode until they choose a mode themselves. Needs Simplify.',
+    'host_mode' => 'Start admins on the Admin page',
+    'host_mode_help' => 'Admins of a panel with more than one node start on Simplify\'s Admin page (Health), once per session. Needs Simplify.',
     'save' => 'Save',
     'saved' => 'Settings saved',
     'upgrade' => 'Upgrade this server',

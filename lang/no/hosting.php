@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Hosting',
-    'description' => 'Faktureringslenker, et kundeområde for kunder og vertsmodus for store paneler.',
+    'description' => 'Faktureringslenker, et kundeområde for kunder og Admin-siden som startside for admins av store paneler.',
     'customers' => 'For kunder',
     'billing' => 'Faktureringslenke',
     'billing_help' => 'Der kunder administrerer eller oppgraderer en server, for eksempel kundeområdet ditt i WHMCS, Paymenter eller HostBill. {uuid} og {external_id} blir serverens egne verdier.',
@@ -11,8 +11,8 @@ return [
     'order' => 'Bestillingslenke',
     'order_help' => 'Der folk bestiller en ny server. Kunder ser den over serverne sine.',
     'admins' => 'For administratorer',
-    'host_mode' => 'Åpne i vertsmodus',
-    'host_mode_help' => 'Administratorer av et panel med mer enn én Node starter i vertsmodusen til Simplify til de velger en visning selv. Krever Simplify.',
+    'host_mode' => 'Start admins på Admin-siden',
+    'host_mode_help' => 'Admins av et panel med mer enn én node starter på Simplifys Admin-side (Health), én gang per økt. Krever Simplify.',
     'save' => 'Lagre',
     'saved' => 'Innstillinger lagret',
     'upgrade' => 'Oppgrader denne serveren',

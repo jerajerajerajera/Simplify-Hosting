@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Hosting',
-    'description' => 'Factuurlinks, een klantportaal voor klanten en hostmodus voor grote panelen.',
+    'description' => 'Factuurlinks, een klantportaal voor klanten en de Admin-pagina als startpagina voor beheerders van grote panelen.',
     'customers' => 'Voor klanten',
     'billing' => 'Factuurlink',
     'billing_help' => 'Waar klanten een server beheren of uitbreiden, bijvoorbeeld je klantomgeving in WHMCS, Paymenter of HostBill. {uuid} en {external_id} worden de waarden van de server zelf.',
@@ -11,8 +11,8 @@ return [
     'order' => 'Bestellink',
     'order_help' => 'Waar mensen een nieuwe server bestellen. Klanten zien hem boven hun servers.',
     'admins' => 'Voor beheerders',
-    'host_mode' => 'Openen in hostmodus',
-    'host_mode_help' => 'Beheerders van een paneel met meer dan één node starten in de hostmodus van Simplify, tot ze zelf een weergave kiezen. Werkt met Simplify.',
+    'host_mode' => 'Beheerders starten op de Admin-pagina',
+    'host_mode_help' => 'Beheerders van een paneel met meer dan één node starten op de Admin-pagina van Simplify (Health), één keer per sessie. Werkt met Simplify.',
     'save' => 'Opslaan',
     'saved' => 'Instellingen opgeslagen',
     'upgrade' => 'Deze server upgraden',

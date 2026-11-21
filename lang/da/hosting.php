@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Hosting',
-    'description' => 'Betalingslinks, et kundeområde for kunder og værtstilstand til store paneler.',
+    'description' => 'Faktureringslinks, et kundeområde til kunder og Admin-siden som startside for admins af store paneler.',
     'customers' => 'Til kunder',
     'billing' => 'Faktureringslink',
     'billing_help' => 'Hvor kunder administrerer eller opgraderer en server, for eksempel dit kundeområde i WHMCS, Paymenter eller HostBill. {uuid} og {external_id} bliver serverens egne værdier.',
@@ -11,8 +11,8 @@ return [
     'order' => 'Bestillingslink',
     'order_help' => 'Hvor folk bestiller en ny server. Kunder ser det over deres servere.',
     'admins' => 'Til administratorer',
-    'host_mode' => 'Åbn i værtstilstand',
-    'host_mode_help' => 'Administratorer af et panel med mere end én Node starter i Simplifys værtstilstand, indtil de selv vælger en visning. Kræver Simplify.',
+    'host_mode' => 'Start admins på Admin-siden',
+    'host_mode_help' => 'Admins af et panel med mere end én node starter på Simplifys Admin-side (Health), én gang pr. session. Kræver Simplify.',
     'save' => 'Gem',
     'saved' => 'Indstillinger gemt',
     'upgrade' => 'Opgrader denne server',

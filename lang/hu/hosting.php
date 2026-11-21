@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Hosting',
-    'description' => 'Számlázási linkek, ügyfélterület az ügyfeleknek és hoszt mód nagy panelekhez.',
+    'description' => 'Számlázási linkek, ügyfélterület az ügyfeleknek és az Admin oldal mint kezdőlap a nagy panelek adminjainak.',
     'customers' => 'Ügyfeleknek',
     'billing' => 'Számlázási hivatkozás',
     'billing_help' => 'Ahol az ügyfelek kezelik vagy bővítik a szervert, például a WHMCS, Paymenter vagy HostBill ügyfélterületed. A {uuid} és {external_id} a szerver saját értékeire cserélődik.',
@@ -11,8 +11,8 @@ return [
     'order' => 'Rendelési link',
     'order_help' => 'Ahol új szervert rendelnek. Az ügyfelek a szervereik felett látják.',
     'admins' => 'Adminoknak',
-    'host_mode' => 'Megnyitás hoszt módban',
-    'host_mode_help' => 'Az egynél több Node-dal rendelkező panel adminjai a Simplify hoszt módjában indulnak, amíg maguk nem választanak módot. Simplify szükséges.',
+    'host_mode' => 'Az adminok az Admin oldalon kezdenek',
+    'host_mode_help' => 'Az egynél több node-dal rendelkező panel adminjai a Simplify Admin oldalán (Health) kezdenek, munkamenetenként egyszer. Simplify szükséges.',
     'save' => 'Mentés',
     'saved' => 'Beállítások mentve',
     'upgrade' => 'Szerver bővítése',

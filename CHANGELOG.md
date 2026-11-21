@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- The setting "Open in host mode" is now called "Start admins on the Admin page", with a help text that says what it does with Simplify 2.0: admins of a panel with more than one node start on the Admin page, once per session.
+
 ## 2.0.0-beta.10
 
 - Released together with Simplify 2.0.0-beta.10, which runs the new code right after an update (no "Unable to find component" error).

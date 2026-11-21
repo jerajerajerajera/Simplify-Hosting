@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Hosting',
-    'description' => 'Laskutuslinkit, asiakasalue asiakkaille ja isäntätila suurille paneeleille.',
+    'description' => 'Laskutuslinkit, asiakasalue asiakkaille ja Admin-sivu suurten paneelien ylläpitäjien aloitussivuna.',
     'customers' => 'Asiakkaille',
     'billing' => 'Laskutuslinkki',
     'billing_help' => 'Missä asiakkaat hallitsevat tai päivittävät palvelinta, esimerkiksi WHMCS-, Paymenter- tai HostBill-asiakasalueesi. {uuid} ja {external_id} korvataan palvelimen omilla arvoilla.',
@@ -11,8 +11,8 @@ return [
     'order' => 'Tilauslinkki',
     'order_help' => 'Missä uusia palvelimia tilataan. Asiakkaat näkevät sen palvelimiensa yläpuolella.',
     'admins' => 'Ylläpitäjille',
-    'host_mode' => 'Avaa isäntätilassa',
-    'host_mode_help' => 'Paneelin, jossa on useampi kuin yksi Node, ylläpitäjät aloittavat Simplifyn isäntätilassa, kunnes valitsevat tilan itse. Vaatii Simplifyn.',
+    'host_mode' => 'Ylläpitäjät aloittavat Admin-sivulta',
+    'host_mode_help' => 'Paneelin, jossa on useampi kuin yksi node, ylläpitäjät aloittavat Simplifyn Admin-sivulta (Health) kerran istunnossa. Vaatii Simplifyn.',
     'save' => 'Tallenna',
     'saved' => 'Asetukset tallennettu',
     'upgrade' => 'Päivitä tämä palvelin isompaan',

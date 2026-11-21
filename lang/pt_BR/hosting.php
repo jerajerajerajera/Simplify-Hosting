@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Hospedagem',
-    'description' => 'Links de cobrança, uma área do cliente e o modo host para painéis grandes.',
+    'description' => 'Links de cobrança, uma área do cliente para os clientes e a página Admin como página inicial para os administradores de painéis grandes.',
     'customers' => 'Para clientes',
     'billing' => 'Link de cobrança',
     'billing_help' => 'Onde os clientes gerenciam ou melhoram um servidor, por exemplo sua área do cliente no WHMCS, Paymenter ou HostBill. {uuid} e {external_id} viram os valores do servidor.',
@@ -11,8 +11,8 @@ return [
     'order' => 'Link de contratação',
     'order_help' => 'Onde as pessoas pedem um servidor novo. Os clientes veem acima dos seus servidores.',
     'admins' => 'Para administradores',
-    'host_mode' => 'Abrir no modo host',
-    'host_mode_help' => 'Administradores de um painel com mais de um Node começam no modo host do Simplify até escolherem um modo. Requer o Simplify.',
+    'host_mode' => 'Iniciar os administradores na página Admin',
+    'host_mode_help' => 'Os administradores de um painel com mais de um node começam na página Admin do Simplify (Health), uma vez por sessão. Requer o Simplify.',
     'save' => 'Salvar',
     'saved' => 'Configurações salvas',
     'upgrade' => 'Fazer upgrade deste servidor',

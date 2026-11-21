@@ -41,15 +41,25 @@ final class Settings
         self::$row = null;
     }
 
-    /** The billing page of one server, with its own {uuid} and {external_id}. */
+    /**
+     * The billing page of one server, with its own {uuid} and {external_id}. None when the link needs a value the
+     * server does not have: a server made in the panel itself has no external id, and a link that ends in "id="
+     * opens nothing useful.
+     */
     public static function billing(Server $server): ?string
     {
         $url = self::get('billing_url');
+        if ($url === null) {
+            return null;
+        }
+        $values = ['{uuid}' => (string) $server->uuid, '{external_id}' => (string) $server->external_id];
+        foreach ($values as $placeholder => $value) {
+            if ($value === '' && str_contains($url, $placeholder)) {
+                return null;
+            }
+        }
 
-        return $url === null ? null : strtr($url, [
-            '{uuid}' => rawurlencode((string) $server->uuid),
-            '{external_id}' => rawurlencode((string) $server->external_id),
-        ]);
+        return strtr($url, array_map(rawurlencode(...), $values));
     }
 
     /** Forgets the row read in this request. */

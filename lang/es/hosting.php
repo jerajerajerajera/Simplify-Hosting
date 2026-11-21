@@ -12,7 +12,7 @@ return [
     'order_help' => 'Donde la gente pide un servidor nuevo. Los clientes lo ven encima de sus servidores.',
     'admins' => 'Para administradores',
     'host_mode' => 'Abrir en modo anfitrión',
-    'host_mode_help' => 'Los administradores de un panel con más de un Node empiezan en el modo anfitrión de Simplify hasta que elijan un modo. Necesita Simplify.',
+    'host_mode_help' => 'Los administradores de un panel con más de un Node empiezan en la página Admin de Simplify, una vez por sesión. Necesita Simplify.',
     'save' => 'Guardar',
     'saved' => 'Ajustes guardados',
     'upgrade' => 'Mejorar este servidor',

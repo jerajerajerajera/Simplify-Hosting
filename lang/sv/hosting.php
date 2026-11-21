@@ -12,7 +12,7 @@ return [
     'order_help' => 'Där man beställer en ny server. Kunder ser den ovanför sina servrar.',
     'admins' => 'För administratörer',
     'host_mode' => 'Öppna i värdläge',
-    'host_mode_help' => 'Administratörer av en panel med fler än en Node börjar i Simplifys värdläge tills de själva väljer ett läge. Kräver Simplify.',
+    'host_mode_help' => 'Administratörer av en panel med fler än en Node börjar på Simplifys Admin-sida, en gång per session. Kräver Simplify.',
     'save' => 'Spara',
     'saved' => 'Inställningar sparade',
     'upgrade' => 'Uppgradera den här servern',

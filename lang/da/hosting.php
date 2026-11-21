@@ -12,7 +12,7 @@ return [
     'order_help' => 'Hvor folk bestiller en ny server. Kunder ser det over deres servere.',
     'admins' => 'Til administratorer',
     'host_mode' => 'Åbn i værtstilstand',
-    'host_mode_help' => 'Administratorer af et panel med mere end én Node starter i Simplifys værtstilstand, indtil de selv vælger en visning. Kræver Simplify.',
+    'host_mode_help' => 'Administratorer af et panel med mere end én Node starter på Simplifys Admin-side, én gang pr. session. Kræver Simplify.',
     'save' => 'Gem',
     'saved' => 'Indstillinger gemt',
     'upgrade' => 'Opgrader denne server',

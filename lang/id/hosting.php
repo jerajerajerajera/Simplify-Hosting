@@ -12,7 +12,7 @@ return [
     'order_help' => 'Tempat orang memesan server baru. Pelanggan melihatnya di atas server mereka.',
     'admins' => 'Untuk admin',
     'host_mode' => 'Buka dalam mode host',
-    'host_mode_help' => 'Admin panel dengan lebih dari satu Node mulai di mode host Simplify sampai mereka memilih mode sendiri. Memerlukan Simplify.',
+    'host_mode_help' => 'Admin panel dengan lebih dari satu Node mulai di halaman Admin Simplify, sekali per sesi. Memerlukan Simplify.',
     'save' => 'Simpan',
     'saved' => 'Pengaturan disimpan',
     'upgrade' => 'Tingkatkan server ini',

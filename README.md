@@ -4,7 +4,7 @@
 
 A plugin for the [Pelican panel](https://pelican.dev) for hosting companies. It links your panel to your billing
 system: customers find the page to upgrade a server, their client area and your order page, and admins of a large
-panel start in Simplify's host mode.
+panel start on Simplify's Admin page.
 
 It works on its own. With [Simplify](https://github.com/jerajerajerajera/Simplify) installed, the links also show
 inside Simplify and it shows up in Simplify's add-on list.
@@ -12,7 +12,8 @@ inside Simplify and it shows up in Simplify's add-on list.
 ## Setup
 
 1. Install the plugin from the Pelican Hub.
-2. Open **Admin → Simplify → Hosting**. With Simplify 2.0 the settings are in **Simplify settings › Add-ons › Hosting**.
+2. Open **Simplify settings › Add-ons › Hosting**. Without Simplify, open **Hosting** under **Simplify** in Pelican's
+   admin menu.
 3. Pick your billing system (WHMCS, Paymenter or Blesta) and enter its address: the links are filled in for you.
    Change them or fill them in yourself, and press **Save**.
 
@@ -20,13 +21,14 @@ inside Simplify and it shows up in Simplify's add-on list.
 
 | Setting | Without Simplify | With Simplify |
 | --- | --- | --- |
-| **Billing link** | "Upgrade this server" on a server's console | "Upgrade this server" in the ⋯ menu of the server page; on a suspended server "Pay invoice", also on the server's card (Simplify 1.5.5 and newer) |
+| **Billing link** | "Upgrade this server" on a server's console | "Upgrade this server" in the ⋯ menu of the server page; on a suspended server "Pay invoice", also on the server's card |
 | **Client area link** | "Client area" in everyone's account menu | also an icon in Simplify's account menu, and beside a greeting above a customer's servers |
 | **Order link** | | "Order a server" beside that greeting |
-| **Open in host mode** | | admins of a panel with more than one node start on Simplify's Admin page once per session (Simplify 1.5.6 and newer); with older Simplify versions they start in host mode, until they pick a mode |
+| **Open in host mode** | | admins of a panel with more than one node start on Simplify's Admin page, once per session |
 
 The billing link may hold `{uuid}` and `{external_id}`, which become the server's own values, for example
-`https://billing.example.com/clientarea.php?action=productdetails&id={external_id}`.
+`https://billing.example.com/clientarea.php?action=productdetails&id={external_id}`. A server without an external id,
+such as one made in the panel itself, gets no link that needs it.
 
 Customers are users who are not admins. Every link must start with `https://`. The plugin never bills anyone
 itself and sends nothing anywhere: it only shows your links.

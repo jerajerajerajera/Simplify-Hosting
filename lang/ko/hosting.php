@@ -12,7 +12,7 @@ return [
     'order_help' => '새 서버를 주문하는 곳입니다. 고객은 자신의 서버 위에서 볼 수 있습니다.',
     'admins' => '관리자용',
     'host_mode' => '호스트 모드로 열기',
-    'host_mode_help' => 'Node가 둘 이상인 패널의 관리자는 직접 모드를 고를 때까지 Simplify의 호스트 모드로 시작합니다. Simplify가 필요합니다.',
+    'host_mode_help' => 'Node가 둘 이상인 패널의 관리자는 세션마다 한 번 Simplify의 관리 페이지에서 시작합니다. Simplify가 필요합니다.',
     'save' => '저장',
     'saved' => '설정을 저장했습니다',
     'upgrade' => '이 서버 업그레이드',

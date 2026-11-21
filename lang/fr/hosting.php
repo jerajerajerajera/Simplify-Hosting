@@ -12,7 +12,7 @@ return [
     'order_help' => 'Là où l\'on commande un nouveau serveur. Les clients le voient au-dessus de leurs serveurs.',
     'admins' => 'Pour les administrateurs',
     'host_mode' => 'Ouvrir en mode hôte',
-    'host_mode_help' => 'Les administrateurs d\'un panneau avec plus d\'un Node commencent dans le mode hôte de Simplify jusqu\'à ce qu\'ils choisissent un mode. Nécessite Simplify.',
+    'host_mode_help' => 'Les administrateurs d\'un panneau avec plus d\'un Node commencent sur la page Admin de Simplify, une fois par session. Nécessite Simplify.',
     'save' => 'Enregistrer',
     'saved' => 'Paramètres enregistrés',
     'upgrade' => 'Améliorer ce serveur',

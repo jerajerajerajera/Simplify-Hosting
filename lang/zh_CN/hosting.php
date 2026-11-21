@@ -12,7 +12,7 @@ return [
     'order_help' => '订购新服务器的地方。客户会在自己的服务器上方看到它。',
     'admins' => '面向管理员',
     'host_mode' => '以主机模式打开',
-    'host_mode_help' => '拥有多个 Node 的面板管理员会以 Simplify 的主机模式开始，直到他们自己选择模式。需要 Simplify。',
+    'host_mode_help' => '拥有多个 Node 的面板管理员每次会话会先打开一次 Simplify 的“管理”页面。需要 Simplify。',
     'save' => '保存',
     'saved' => '设置已保存',
     'upgrade' => '升级此服务器',

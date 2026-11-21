@@ -12,7 +12,7 @@ return [
     'order_help' => 'Nơi mọi người đặt máy chủ mới. Khách hàng thấy nó phía trên máy chủ của họ.',
     'admins' => 'Cho quản trị viên',
     'host_mode' => 'Mở ở chế độ máy chủ',
-    'host_mode_help' => 'Quản trị viên của bảng điều khiển có nhiều hơn một Node sẽ bắt đầu ở chế độ máy chủ của Simplify cho đến khi tự chọn chế độ. Cần Simplify.',
+    'host_mode_help' => 'Quản trị viên của bảng điều khiển có nhiều hơn một Node sẽ bắt đầu ở trang Quản trị của Simplify, mỗi phiên một lần. Cần Simplify.',
     'save' => 'Lưu',
     'saved' => 'Đã lưu cài đặt',
     'upgrade' => 'Nâng cấp máy chủ này',

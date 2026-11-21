@@ -12,7 +12,7 @@ return [
     'order_help' => 'Missä uusia palvelimia tilataan. Asiakkaat näkevät sen palvelimiensa yläpuolella.',
     'admins' => 'Ylläpitäjille',
     'host_mode' => 'Avaa isäntätilassa',
-    'host_mode_help' => 'Paneelin, jossa on useampi kuin yksi Node, ylläpitäjät aloittavat Simplifyn isäntätilassa, kunnes valitsevat tilan itse. Vaatii Simplifyn.',
+    'host_mode_help' => 'Paneelin, jossa on useampi kuin yksi Node, ylläpitäjät aloittavat Simplifyn Ylläpito-sivulta, kerran istuntoa kohden. Vaatii Simplifyn.',
     'save' => 'Tallenna',
     'saved' => 'Asetukset tallennettu',
     'upgrade' => 'Päivitä tämä palvelin isompaan',

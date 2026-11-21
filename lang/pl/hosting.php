@@ -12,7 +12,7 @@ return [
     'order_help' => 'Gdzie zamawia się nowy serwer. Klienci widzą link nad swoimi serwerami.',
     'admins' => 'Dla administratorów',
     'host_mode' => 'Otwieraj w trybie hosta',
-    'host_mode_help' => 'Administratorzy panelu z więcej niż jednym Node zaczynają w trybie hosta Simplify, dopóki sami nie wybiorą trybu. Wymaga Simplify.',
+    'host_mode_help' => 'Administratorzy panelu z więcej niż jednym Node zaczynają na stronie Admin w Simplify, raz na sesję. Wymaga Simplify.',
     'save' => 'Zapisz',
     'saved' => 'Ustawienia zapisane',
     'upgrade' => 'Ulepsz ten serwer',

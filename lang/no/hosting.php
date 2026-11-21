@@ -12,7 +12,7 @@ return [
     'order_help' => 'Der folk bestiller en ny server. Kunder ser den over serverne sine.',
     'admins' => 'For administratorer',
     'host_mode' => 'Åpne i vertsmodus',
-    'host_mode_help' => 'Administratorer av et panel med mer enn én Node starter i vertsmodusen til Simplify til de velger en visning selv. Krever Simplify.',
+    'host_mode_help' => 'Administratorer av et panel med mer enn én Node starter på Admin-siden til Simplify, én gang per økt. Krever Simplify.',
     'save' => 'Lagre',
     'saved' => 'Innstillinger lagret',
     'upgrade' => 'Oppgrader denne serveren',

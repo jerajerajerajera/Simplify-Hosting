@@ -10,6 +10,7 @@
 |---|---|---|---|---|---|---|---|
 | B9 | 1.0.2 | Instellingspagina scrolt als geheel met Simplify 1.5 | Formulier zonder `s-fit` | 1.0.2 | `tests/panel/smoke.php` stap "settings page renders for a root admin" (controleert `class="s-fit"`) | 0× (patroon met andere add-ons) | P-7 |
 | HO-B1 | 21-11 | (Audit vóór stable.) "Upgrade this server" en "Pay invoice" openen een kapotte link (`…&id=`, `/services//upgrade`) bij een server zonder external id, als de betaallink `{external_id}` gebruikt. Zonder en met kern | `Settings::billing()` vulde een lege waarde in; een server die in het paneel zelf is gemaakt heeft geen external id | Unreleased | `tests/panel/smoke.php`: "a billing link with {external_id} is left out for a server without an external id" (rood op c4b674b) | 0× | P-31 |
+| HO-B2 | 21-11 | (Audit vóór stable.) De hulptekst bij "Open in host mode" zegt dat admins in de hostmodus starten "until they choose a mode themselves"; in werkelijkheid starten ze op de Admin-pagina, één keer per sessie | Tekst van vóór de Admin-pagina van Simplify (1.5.6, add-on API 5) | Unreleased: hulptekst gelijk aan het gedrag en aan de README, 32 talen | `tests/panel/smoke.php`: "the settings save from the page and reject a link that is not https" (regel over de hulptekst; rood op 9f0c67c) | 0× | P-35 |
 
 ## Patronen
 

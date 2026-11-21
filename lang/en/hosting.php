@@ -12,7 +12,7 @@ return [
     'order_help' => 'Where people order a new server. Customers see it above their servers.',
     'admins' => 'For admins',
     'host_mode' => 'Open in host mode',
-    'host_mode_help' => 'Admins of a panel with more than one node start in Simplify\'s host mode until they choose a mode themselves. Needs Simplify.',
+    'host_mode_help' => 'Admins of a panel with more than one node start on Simplify\'s Admin page, once per session. Needs Simplify.',
     'save' => 'Save',
     'saved' => 'Settings saved',
     'upgrade' => 'Upgrade this server',

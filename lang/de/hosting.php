@@ -12,7 +12,7 @@ return [
     'order_help' => 'Wo neue Server bestellt werden. Kunden sehen den Link über ihren Servern.',
     'admins' => 'Für Admins',
     'host_mode' => 'Im Host-Modus öffnen',
-    'host_mode_help' => 'Admins eines Panels mit mehr als einer Node starten im Host-Modus von Simplify, bis sie selbst einen Modus wählen. Braucht Simplify.',
+    'host_mode_help' => 'Admins eines Panels mit mehr als einer Node starten auf der Admin-Seite von Simplify, einmal pro Sitzung. Braucht Simplify.',
     'save' => 'Speichern',
     'saved' => 'Einstellungen gespeichert',
     'upgrade' => 'Diesen Server upgraden',

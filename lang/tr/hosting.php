@@ -12,7 +12,7 @@ return [
     'order_help' => 'Yeni sunucu siparişinin verildiği yer. Müşteriler bunu sunucularının üstünde görür.',
     'admins' => 'Yöneticiler için',
     'host_mode' => 'Ana bilgisayar modunda aç',
-    'host_mode_help' => 'Birden fazla Node\'a sahip bir panelin yöneticileri, kendileri bir mod seçene kadar Simplify\'ın ana bilgisayar modunda başlar. Simplify gerekir.',
+    'host_mode_help' => 'Birden fazla Node\'a sahip bir panelin yöneticileri, oturum başına bir kez Simplify\'ın Yönetim sayfasında başlar. Simplify gerekir.',
     'save' => 'Kaydet',
     'saved' => 'Ayarlar kaydedildi',
     'upgrade' => 'Bu sunucuyu yükselt',

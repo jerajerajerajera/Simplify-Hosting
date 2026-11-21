@@ -12,7 +12,7 @@ return [
     'order_help' => 'Ahol új szervert rendelnek. Az ügyfelek a szervereik felett látják.',
     'admins' => 'Adminoknak',
     'host_mode' => 'Megnyitás hoszt módban',
-    'host_mode_help' => 'Az egynél több Node-dal rendelkező panel adminjai a Simplify hoszt módjában indulnak, amíg maguk nem választanak módot. Simplify szükséges.',
+    'host_mode_help' => 'Az egynél több Node-dal rendelkező panel adminjai a Simplify Admin oldalán indulnak, munkamenetenként egyszer. Simplify szükséges.',
     'save' => 'Mentés',
     'saved' => 'Beállítások mentve',
     'upgrade' => 'Szerver bővítése',

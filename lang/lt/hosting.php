@@ -12,7 +12,7 @@ return [
     'order_help' => 'Kur užsakomas naujas serveris. Klientai mato nuorodą virš savo serverių.',
     'admins' => 'Administratoriams',
     'host_mode' => 'Atidaryti pagrindinio kompiuterio režimu',
-    'host_mode_help' => 'Skydelio su daugiau nei vienu Node administratoriai pradeda Simplify pagrindinio kompiuterio režimu, kol patys pasirenka režimą. Reikia Simplify.',
+    'host_mode_help' => 'Skydelio su daugiau nei vienu Node administratoriai pradeda Simplify puslapyje „Administravimas“, kartą per seansą. Reikia Simplify.',
     'save' => 'Išsaugoti',
     'saved' => 'Nustatymai išsaugoti',
     'upgrade' => 'Patobulinti šį serverį',

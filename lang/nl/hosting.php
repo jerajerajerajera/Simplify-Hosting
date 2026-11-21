@@ -12,7 +12,7 @@ return [
     'order_help' => 'Waar mensen een nieuwe server bestellen. Klanten zien hem boven hun servers.',
     'admins' => 'Voor beheerders',
     'host_mode' => 'Openen in hostmodus',
-    'host_mode_help' => 'Beheerders van een paneel met meer dan één node starten in de hostmodus van Simplify, tot ze zelf een weergave kiezen. Werkt met Simplify.',
+    'host_mode_help' => 'Beheerders van een paneel met meer dan één node starten op de pagina Beheer van Simplify, één keer per sessie. Werkt met Simplify.',
     'save' => 'Opslaan',
     'saved' => 'Instellingen opgeslagen',
     'upgrade' => 'Deze server upgraden',

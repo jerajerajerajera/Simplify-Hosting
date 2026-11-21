@@ -12,7 +12,7 @@ return [
     'order_help' => '訂購新伺服器的地方。客戶會在自己的伺服器上方看到它。',
     'admins' => '面向管理員',
     'host_mode' => '以主機模式開啟',
-    'host_mode_help' => '擁有多個 Node 的面板管理員會以 Simplify 的主機模式開始，直到他們自己選擇模式。需要 Simplify。',
+    'host_mode_help' => '擁有多個 Node 的面板管理員每次工作階段會先開啟一次 Simplify 的「管理」頁面。需要 Simplify。',
     'save' => '儲存',
     'saved' => '設定已儲存',
     'upgrade' => '升級此伺服器',

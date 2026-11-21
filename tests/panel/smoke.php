@@ -120,6 +120,8 @@ step('the settings save from the page and reject a link that is not https', func
         ->dispatch('simplify-hosting-settings-save')->assertHasNoErrors();
     Settings::flush();
     must(Settings::get('client_area_url') === 'https://billing.example.com/clientarea' && Settings::get('host_mode') === true, 'the settings were not saved');
+    // HO-B2: the help of "Open in host mode" says what it does since Simplify has its Admin page: there, once per session.
+    must(str_contains(__('simplify-hosting::hosting.host_mode_help'), "start on Simplify's Admin page, once per session") && ! str_contains(__('simplify-hosting::hosting.host_mode_help'), 'until they choose'), 'the help of Open in host mode describes the old host mode');
     Livewire::actingAs($admin)->test(HostingSettingsForm::class)->set('data.order_url', 'http://plain.example.com')->call('save')->assertHasErrors(['data.order_url']);
 });
 step('picking a billing system fills in its links', function () use ($admin) {

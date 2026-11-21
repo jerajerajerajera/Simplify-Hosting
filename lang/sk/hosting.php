@@ -12,7 +12,7 @@ return [
     'order_help' => 'Kde si ľudia objednávajú nový server. Zákazníci ho vidia nad svojimi servermi.',
     'admins' => 'Pre administrátorov',
     'host_mode' => 'Otvárať v režime hostiteľa',
-    'host_mode_help' => 'Administrátori panelu s viac ako jednou Node začínajú v režime hostiteľa Simplify, kým si sami nevyberú režim. Vyžaduje Simplify.',
+    'host_mode_help' => 'Administrátori panelu s viac ako jednou Node začínajú na stránke Admin v Simplify, raz za reláciu. Vyžaduje Simplify.',
     'save' => 'Uložiť',
     'saved' => 'Nastavenia uložené',
     'upgrade' => 'Vylepšiť tento server',

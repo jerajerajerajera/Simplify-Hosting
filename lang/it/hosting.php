@@ -12,7 +12,7 @@ return [
     'order_help' => 'Dove si ordina un nuovo server. I clienti lo vedono sopra i loro server.',
     'admins' => 'Per gli amministratori',
     'host_mode' => 'Apri in modalità host',
-    'host_mode_help' => 'Gli amministratori di un pannello con più di un Node partono nella modalità host di Simplify finché non scelgono una modalità. Richiede Simplify.',
+    'host_mode_help' => 'Gli amministratori di un pannello con più di un Node partono dalla pagina Admin di Simplify, una volta per sessione. Richiede Simplify.',
     'save' => 'Salva',
     'saved' => 'Impostazioni salvate',
     'upgrade' => 'Potenzia questo server',

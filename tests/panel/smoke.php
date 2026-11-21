@@ -156,6 +156,22 @@ step('the add-on gives Simplify the billing link, the customer links and host mo
     $tagged = array_map(fn ($a) => $a::class, iterator_to_array(app()->tagged('simplify.addons')));
     must(in_array(HostingAddon::class, $tagged, true), 'the add-on is not tagged');
 });
+step('a billing link with {external_id} is left out for a server without an external id (HO-B1)', function () {
+    $saved = array_combine(Settings::FIELDS, array_map(fn ($key) => Settings::get($key), Settings::FIELDS));
+    Settings::save([...$saved, 'billing_url' => 'https://pay.example.com/upgrade.php?type=package&id={external_id}']);
+    try {
+        $addon = app(HostingAddon::class);
+        $server = new Server;
+        $server->uuid = 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee';
+        // Made in the panel itself, not by the billing system: a link ending in "id=" opens nothing useful there.
+        must(Settings::billing($server) === null && $addon->serverLinks($server) === [], 'a server without an external id gets a broken billing link: '.json_encode(Settings::billing($server)));
+        $server->external_id = '42';
+        must(Settings::billing($server) === 'https://pay.example.com/upgrade.php?type=package&id=42', 'the external id is not filled in: '.json_encode(Settings::billing($server)));
+    } finally {
+        Settings::save($saved);
+    }
+});
+
 step('Simplify\'s setup asks for the links and host mode and saves them', function () use ($admin, $customer) {
     $addon = app(HostingAddon::class);
     auth()->setUser($customer);

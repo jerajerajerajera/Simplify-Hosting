@@ -9,6 +9,7 @@
 | Nr | Datum | Wat zag de gebruiker | Oorzaak | Fix (versie) | Regressietest | Teruggekomen | Regel |
 |---|---|---|---|---|---|---|---|
 | B9 | 1.0.2 | Instellingspagina scrolt als geheel met Simplify 1.5 | Formulier zonder `s-fit` | 1.0.2 | `tests/panel/smoke.php` stap "settings page renders for a root admin" (controleert `class="s-fit"`) | 0× (patroon met andere add-ons) | P-7 |
+| HO-B1 | 21-11 | (Audit vóór stable.) "Upgrade this server" en "Pay invoice" openen een kapotte link (`…&id=`, `/services//upgrade`) bij een server zonder external id, als de betaallink `{external_id}` gebruikt. Zonder en met kern | `Settings::billing()` vulde een lege waarde in; een server die in het paneel zelf is gemaakt heeft geen external id | Unreleased | `tests/panel/smoke.php`: "a billing link with {external_id} is left out for a server without an external id" (rood op c4b674b) | 0× | P-31 |
 
 ## Patronen
 

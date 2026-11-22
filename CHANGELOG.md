@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.0.0-beta.15
+
 - A billing link with `{external_id}` is left out for a server without an external id (one made in the panel itself). Before, "Upgrade this server" and "Pay invoice" opened a link that ended in `id=`.
 - The help of **Open in host mode** says what the setting does: admins of a panel with more than one node start on Simplify's Admin page, once per session.
 - Checks: the panel smoke also runs on Pelican 1.0.0-rc.4.

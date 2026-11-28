@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Lưu trữ',
-    'description' => 'Liên kết thanh toán, khu vực khách hàng và chế độ máy chủ cho bảng điều khiển lớn.',
+    'description' => 'Liên kết thanh toán, khu vực khách hàng cho khách hàng và trang Admin làm trang bắt đầu cho quản trị viên của panel lớn.',
     'customers' => 'Cho khách hàng',
     'billing' => 'Liên kết thanh toán',
     'billing_help' => 'Nơi khách hàng quản lý hoặc nâng cấp máy chủ, ví dụ khu vực khách hàng WHMCS, Paymenter hoặc HostBill của bạn. {uuid} và {external_id} sẽ thành giá trị của chính máy chủ đó.',
@@ -11,8 +11,8 @@ return [
     'order' => 'Liên kết đặt mua',
     'order_help' => 'Nơi mọi người đặt máy chủ mới. Khách hàng thấy nó phía trên máy chủ của họ.',
     'admins' => 'Cho quản trị viên',
-    'host_mode' => 'Mở ở chế độ máy chủ',
-    'host_mode_help' => 'Quản trị viên của bảng điều khiển có nhiều hơn một Node sẽ bắt đầu ở trang Quản trị của Simplify, mỗi phiên một lần. Cần Simplify.',
+    'host_mode' => 'Quản trị viên bắt đầu ở trang Admin',
+    'host_mode_help' => 'Quản trị viên của panel có nhiều hơn một node bắt đầu ở trang Admin của Simplify (Health), một lần mỗi phiên. Cần Simplify.',
     'save' => 'Lưu',
     'saved' => 'Đã lưu cài đặt',
     'upgrade' => 'Nâng cấp máy chủ này',

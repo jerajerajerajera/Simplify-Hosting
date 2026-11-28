@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- The setting "Open in host mode" is now called "Start admins on the Admin page", and the add-on's description no longer speaks of host mode.
+
 ## 2.0.0-beta.15
 
 - A billing link with `{external_id}` is left out for a server without an external id (one made in the panel itself). Before, "Upgrade this server" and "Pay invoice" opened a link that ended in `id=`.

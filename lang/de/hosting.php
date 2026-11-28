@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Hosting',
-    'description' => 'Abrechnungslinks, ein Kundenbereich für Kunden und der Host-Modus für große Panels.',
+    'description' => 'Abrechnungslinks, ein Kundenbereich für Kunden und die Admin-Seite als Startseite für Admins großer Panels.',
     'customers' => 'Für Kunden',
     'billing' => 'Abrechnungslink',
     'billing_help' => 'Wo Kunden einen Server verwalten oder upgraden, zum Beispiel dein Kundenbereich in WHMCS, Paymenter oder HostBill. {uuid} und {external_id} werden zu den Werten des Servers.',
@@ -11,8 +11,8 @@ return [
     'order' => 'Bestelllink',
     'order_help' => 'Wo neue Server bestellt werden. Kunden sehen den Link über ihren Servern.',
     'admins' => 'Für Admins',
-    'host_mode' => 'Im Host-Modus öffnen',
-    'host_mode_help' => 'Admins eines Panels mit mehr als einer Node starten auf der Admin-Seite von Simplify, einmal pro Sitzung. Braucht Simplify.',
+    'host_mode' => 'Admins starten auf der Admin-Seite',
+    'host_mode_help' => 'Admins eines Panels mit mehr als einer Node starten auf der Admin-Seite von Simplify (Health), einmal pro Sitzung. Braucht Simplify.',
     'save' => 'Speichern',
     'saved' => 'Einstellungen gespeichert',
     'upgrade' => 'Diesen Server upgraden',

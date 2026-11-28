@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Hosting',
-    'description' => 'Odkazy na fakturaci, klientská zóna pro zákazníky a režim hostitele pro velké panely.',
+    'description' => 'Fakturační odkazy, klientská zóna pro zákazníky a stránka Admin jako úvodní stránka pro adminy velkých panelů.',
     'customers' => 'Pro zákazníky',
     'billing' => 'Odkaz na fakturaci',
     'billing_help' => 'Kde zákazníci spravují nebo rozšiřují server, třeba vaše klientská sekce ve WHMCS, Paymenter nebo HostBill. {uuid} a {external_id} se nahradí hodnotami serveru.',
@@ -11,8 +11,8 @@ return [
     'order' => 'Odkaz na objednávku',
     'order_help' => 'Kde si lidé objednávají nový server. Zákazníci ho vidí nad svými servery.',
     'admins' => 'Pro administrátory',
-    'host_mode' => 'Otevírat v režimu hostitele',
-    'host_mode_help' => 'Administrátoři panelu s více než jednou Node začínají na stránce Admin v Simplify, jednou za relaci. Vyžaduje Simplify.',
+    'host_mode' => 'Admini začínají na stránce Admin',
+    'host_mode_help' => 'Admini panelu s více než jedním node začínají na stránce Admin v Simplify (Health), jednou za relaci. Vyžaduje Simplify.',
     'save' => 'Uložit',
     'saved' => 'Nastavení uloženo',
     'upgrade' => 'Vylepšit tento server',

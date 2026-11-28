@@ -2,7 +2,7 @@
 
 return [
     'title' => 'ホスティング',
-    'description' => '請求リンク、顧客向けのクライアントエリア、大きなパネル向けのホストモード。',
+    'description' => '請求リンク、顧客向けのクライアントエリア、大きなパネルの管理者向けの開始ページとしての Admin ページ。',
     'customers' => '顧客向け',
     'billing' => '請求リンク',
     'billing_help' => '顧客がサーバーを管理・アップグレードする場所。例: WHMCS、Paymenter、HostBill のクライアントエリア。{uuid} と {external_id} はそのサーバーの値に置き換わります。',
@@ -11,8 +11,8 @@ return [
     'order' => '注文リンク',
     'order_help' => '新しいサーバーを注文する場所。顧客には自分のサーバーの上に表示されます。',
     'admins' => '管理者向け',
-    'host_mode' => 'ホストモードで開く',
-    'host_mode_help' => 'Node が複数あるパネルの管理者は、セッションごとに一度、Simplify の「管理」ページから開始します。Simplify が必要です。',
+    'host_mode' => '管理者は Admin ページから開始',
+    'host_mode_help' => 'Node が複数あるパネルの管理者は、セッションごとに一度 Simplify の Admin ページ (Health) から開始します。Simplify が必要です。',
     'save' => '保存',
     'saved' => '設定を保存しました',
     'upgrade' => 'このサーバーをアップグレード',

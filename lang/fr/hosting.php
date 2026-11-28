@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Hébergement',
-    'description' => 'Liens de facturation, un espace client et le mode hôte pour les grands panneaux.',
+    'description' => 'Liens de facturation, un espace client pour les clients et la page Admin comme page d\'accueil des admins des grands panels.',
     'customers' => 'Pour les clients',
     'billing' => 'Lien de facturation',
     'billing_help' => 'Où les clients gèrent ou améliorent un serveur, par exemple votre espace client WHMCS, Paymenter ou HostBill. {uuid} et {external_id} deviennent les valeurs du serveur.',
@@ -11,8 +11,8 @@ return [
     'order' => 'Lien de commande',
     'order_help' => 'Là où l\'on commande un nouveau serveur. Les clients le voient au-dessus de leurs serveurs.',
     'admins' => 'Pour les administrateurs',
-    'host_mode' => 'Ouvrir en mode hôte',
-    'host_mode_help' => 'Les administrateurs d\'un panneau avec plus d\'un Node commencent sur la page Admin de Simplify, une fois par session. Nécessite Simplify.',
+    'host_mode' => 'Démarrer les admins sur la page Admin',
+    'host_mode_help' => 'Les admins d\'un panel avec plus d\'un node arrivent sur la page Admin de Simplify (Health), une fois par session. Nécessite Simplify.',
     'save' => 'Enregistrer',
     'saved' => 'Paramètres enregistrés',
     'upgrade' => 'Améliorer ce serveur',

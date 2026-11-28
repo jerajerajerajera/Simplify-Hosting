@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Talpinimas',
-    'description' => 'Atsiskaitymo nuorodos, klientų zona ir pagrindinio kompiuterio režimas dideliems skydeliams.',
+    'description' => 'Atsiskaitymo nuorodos, klientų zona klientams ir Admin puslapis kaip pradinis didelių panelių administratoriams.',
     'customers' => 'Klientams',
     'billing' => 'Atsiskaitymų nuoroda',
     'billing_help' => 'Kur klientai tvarko arba padidina serverį, pavyzdžiui, jūsų WHMCS, Paymenter ar HostBill klientų zona. {uuid} ir {external_id} pakeičiami serverio reikšmėmis.',
@@ -11,8 +11,8 @@ return [
     'order' => 'Užsakymo nuoroda',
     'order_help' => 'Kur užsakomas naujas serveris. Klientai mato nuorodą virš savo serverių.',
     'admins' => 'Administratoriams',
-    'host_mode' => 'Atidaryti pagrindinio kompiuterio režimu',
-    'host_mode_help' => 'Skydelio su daugiau nei vienu Node administratoriai pradeda Simplify puslapyje „Administravimas“, kartą per seansą. Reikia Simplify.',
+    'host_mode' => 'Administratoriai pradeda Admin puslapyje',
+    'host_mode_help' => 'Panelės su daugiau nei vienu node administratoriai pradeda Simplify Admin puslapyje (Health), kartą per sesiją. Reikia Simplify.',
     'save' => 'Išsaugoti',
     'saved' => 'Nustatymai išsaugoti',
     'upgrade' => 'Patobulinti šį serverį',

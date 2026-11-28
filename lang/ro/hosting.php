@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Găzduire',
-    'description' => 'Linkuri de facturare, o zonă pentru clienți și modul gazdă pentru panouri mari.',
+    'description' => 'Linkuri de facturare, o zonă de client pentru clienți și pagina Admin ca pagină de start pentru adminii panourilor mari.',
     'customers' => 'Pentru clienți',
     'billing' => 'Link de facturare',
     'billing_help' => 'Unde clienții gestionează sau îmbunătățesc un server, de exemplu zona de clienți WHMCS, Paymenter sau HostBill. {uuid} și {external_id} devin valorile serverului.',
@@ -11,8 +11,8 @@ return [
     'order' => 'Link de comandă',
     'order_help' => 'Unde se comandă un server nou. Clienții îl văd deasupra serverelor lor.',
     'admins' => 'Pentru administratori',
-    'host_mode' => 'Deschide în modul gazdă',
-    'host_mode_help' => 'Administratorii unui panou cu mai mult de un Node încep pe pagina Admin din Simplify, o dată pe sesiune. Necesită Simplify.',
+    'host_mode' => 'Adminii pornesc pe pagina Admin',
+    'host_mode_help' => 'Adminii unui panou cu mai mult de un node pornesc pe pagina Admin din Simplify (Health), o dată pe sesiune. Necesită Simplify.',
     'save' => 'Salvați',
     'saved' => 'Setări salvate',
     'upgrade' => 'Îmbunătățiți acest server',

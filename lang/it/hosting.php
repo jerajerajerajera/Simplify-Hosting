@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Hosting',
-    'description' => 'Link di fatturazione, un\'area clienti e la modalità host per pannelli grandi.',
+    'description' => 'Link di fatturazione, un\'area clienti per i clienti e la pagina Admin come pagina iniziale per gli admin dei pannelli grandi.',
     'customers' => 'Per i clienti',
     'billing' => 'Link di fatturazione',
     'billing_help' => 'Dove i clienti gestiscono o potenziano un server, ad esempio la tua area clienti WHMCS, Paymenter o HostBill. {uuid} e {external_id} diventano i valori del server.',
@@ -11,8 +11,8 @@ return [
     'order' => 'Link per ordinare',
     'order_help' => 'Dove si ordina un nuovo server. I clienti lo vedono sopra i loro server.',
     'admins' => 'Per gli amministratori',
-    'host_mode' => 'Apri in modalità host',
-    'host_mode_help' => 'Gli amministratori di un pannello con più di un Node partono dalla pagina Admin di Simplify, una volta per sessione. Richiede Simplify.',
+    'host_mode' => 'Avvia gli admin sulla pagina Admin',
+    'host_mode_help' => 'Gli admin di un pannello con più di un node partono dalla pagina Admin di Simplify (Health), una volta per sessione. Richiede Simplify.',
     'save' => 'Salva',
     'saved' => 'Impostazioni salvate',
     'upgrade' => 'Potenzia questo server',

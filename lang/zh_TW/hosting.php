@@ -2,7 +2,7 @@
 
 return [
     'title' => '託管',
-    'description' => '帳單連結、客戶專區，以及適合大型面板的主機模式。',
+    'description' => '帳單連結、給客戶的客戶專區，以及作為大型面板管理員起始頁的 Admin 頁面。',
     'customers' => '面向客戶',
     'billing' => '帳單連結',
     'billing_help' => '客戶管理或升級伺服器的地方，例如你的 WHMCS、Paymenter 或 HostBill 客戶專區。{uuid} 和 {external_id} 會換成該伺服器的值。',
@@ -11,8 +11,8 @@ return [
     'order' => '訂購連結',
     'order_help' => '訂購新伺服器的地方。客戶會在自己的伺服器上方看到它。',
     'admins' => '面向管理員',
-    'host_mode' => '以主機模式開啟',
-    'host_mode_help' => '擁有多個 Node 的面板管理員每次工作階段會先開啟一次 Simplify 的「管理」頁面。需要 Simplify。',
+    'host_mode' => '管理員從 Admin 頁面開始',
+    'host_mode_help' => '擁有多個 node 的面板的管理員，每個工作階段一次從 Simplify 的 Admin 頁面（Health）開始。需要 Simplify。',
     'save' => '儲存',
     'saved' => '設定已儲存',
     'upgrade' => '升級此伺服器',

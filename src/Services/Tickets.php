@@ -250,9 +250,12 @@ final class Tickets
             return;
         }
         try {
-            Notification::make()->title($title)->body($ticket->subject)->icon('tabler-lifebuoy')
-                ->actions([Action::make('open')->label(__(self::T.'open'))->url($url)->markAsRead()])
-                ->sendToDatabase($users);
+            $notification = Notification::make()->title($title)->body($ticket->subject)->icon('tabler-lifebuoy')
+                ->actions([Action::make('open')->label(__(self::T.'open'))->url($url)->markAsRead()]);
+            // Right away, not through the queue: many panels run no queue worker, and a ticket must not wait for one.
+            foreach ($users as $recipient) {
+                $recipient->notifyNow($notification->toDatabase());
+            }
             if (Event::hasListeners('simplify.push')) {
                 event('simplify.push', [[
                     'users' => $users->pluck('id')->all(),

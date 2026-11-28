@@ -326,6 +326,9 @@ step('support answers, keeps a note to itself, and the customer hears of the ans
     $html = Livewire::actingAs($customer)->test(TicketDesk::class, ['mode' => 'account'])->call('show', $ticket->id)->html();
     must(str_contains($html, 'Java 21') && ! str_contains($html, 'Java version is wrong'), 'the customer sees the internal note, or not the answer');
     must(! $ticket->refresh()->customer_unread, 'opening the ticket did not mark the answer read');
+});
+// In a step of its own: a request to Admin earlier in the same process leaves Admin's render hooks behind.
+step('My tickets opens from the account menu', function () use ($customer) {
     must(visit($customer, MyTickets::getUrl(panel: 'app'))->getStatusCode() === 200, 'My tickets does not open');
 });
 step('a role with Ticket › Handle handles tickets', function () use ($stranger) {

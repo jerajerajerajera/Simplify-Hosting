@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Simplify\Hosting\Livewire;
 
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TagsInput;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Text;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Contracts\HasSchemas;
@@ -49,12 +52,12 @@ final class HostingSettingsForm extends Component implements HasSchemas
     /** @return array<string, mixed> the saved settings, by field name */
     public static function current(): array
     {
-        return array_combine(Settings::FIELDS, array_map(Settings::get(...), Settings::FIELDS));
+        return [...array_combine(Settings::FIELDS, array_map(Settings::get(...), Settings::FIELDS)), 'ticket_categories' => Settings::categories()];
     }
 
     public function form(Schema $schema): Schema
     {
-        return $schema->statePath('data')->components(self::sections());
+        return $schema->statePath('data')->components([...self::sections(), self::tickets()]);
     }
 
     /**
@@ -90,6 +93,23 @@ final class HostingSettingsForm extends Component implements HasSchemas
                 Toggle::make('host_mode')->label(__(self::T.'host_mode'))->helperText(__(self::T.'host_mode_help')),
             ]),
         ];
+    }
+
+    /** Tickets: on or off, and what customers see when they open one. Not in Simplify's setup. */
+    public static function tickets(): Section
+    {
+        $t = 'simplify-hosting::tickets.';
+
+        return Section::make(__($t.'title_staff'))->description(__($t.'settings_help'))->schema([
+            Toggle::make('tickets')->label(__($t.'setting_on'))->helperText(__($t.'setting_on_help')),
+            Toggle::make('tickets_without_server')->label(__($t.'setting_without_server'))->helperText(__($t.'setting_without_server_help')),
+            Toggle::make('tickets_auto_close')->label(__($t.'setting_auto_close')),
+            TagsInput::make('ticket_categories')->label(__($t.'setting_categories'))->helperText(__($t.'setting_categories_help'))
+                ->placeholder(__($t.'setting_categories_placeholder'))->splitKeys(['Enter', ','])->reorderable(),
+            Textarea::make('ticket_intro')->label(__($t.'setting_intro'))->helperText(__($t.'setting_intro_help'))
+                ->placeholder(__($t.'new_help'))->maxLength(500)->rows(2),
+            Text::make(__($t.'setting_push')),
+        ]);
     }
 
     /** Saves the form; also called by Save in the page's title bar and by Simplify's Save for unsaved changes. */

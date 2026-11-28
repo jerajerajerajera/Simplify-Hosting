@@ -3,8 +3,8 @@
 # Simplify Hosting
 
 A plugin for the [Pelican panel](https://pelican.dev) for hosting companies. It links your panel to your billing
-system: customers find the page to upgrade a server, their client area and your order page, and admins of a large
-panel start on Simplify's Admin page.
+system: customers find the page to upgrade a server, their client area and your order page, they ask you questions in
+tickets, and admins of a large panel start on Simplify's Admin page.
 
 It works on its own. With [Simplify](https://github.com/jerajerajerajera/Simplify) installed, the links also show
 inside Simplify and it shows up in Simplify's add-on list.
@@ -41,6 +41,25 @@ itself and sends nothing anywhere: it only shows your links.
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/suspended-card-desktop-dark.png">
   <img src="docs/screenshots/suspended-card-desktop-light.png" alt="Pay invoice on a suspended server's card" width="260">
 </picture>
+
+## Tickets
+
+Turn on **Let customers open tickets** in the settings. Customers then get **Support** in each server's menu and
+**My tickets** in their account menu. A ticket has a subject, a priority (Low, Normal or High), one of your own
+categories, and optionally the server's last 100 console lines. Tickets without a server (billing, general questions)
+are allowed unless you turn that off.
+
+Support works in **Tickets** under **Simplify** in Admin: filter by Open, Waiting for customer, Closed or Assigned to
+me, answer the customer or write an internal note the customer never sees, and set the status, priority and who
+handles it. Root admins handle tickets, and so does every role with **Ticket › Handle** under People › Roles.
+
+New tickets and replies reach support in the bell, and as an app notification on phones where Simplify's push is on.
+The customer hears of every answer the same way. With **Close tickets after 7 days** on, a ticket that waits a week for
+the customer closes; a reply opens it again.
+
+Another add-on can start a ticket with a text filled in, for example Explain with an explained error:
+`Simplify\Hosting\Services\Tickets::draft(?Server $server, string $subject, string $text): ?string` returns the
+address of the new ticket (null while tickets are off) and keeps the text in the session, never in the address.
 
 ## Coming from Simplify 1.0
 

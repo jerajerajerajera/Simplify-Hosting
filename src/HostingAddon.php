@@ -12,8 +12,10 @@ use Simplify\Core\Addons\Button;
 use Simplify\Core\Filament\Admin\Pages\Settings as SimplifySettings;
 use Simplify\Core\Overview\AdminTree;
 use Simplify\Hosting\Filament\Admin\Pages\HostingSettings;
+use Simplify\Hosting\Filament\App\Pages\MyTickets;
 use Simplify\Hosting\Livewire\HostingSettingsForm;
 use Simplify\Hosting\Services\Settings;
+use Simplify\Hosting\Services\Tickets;
 
 /**
  * How Hosting shows up inside Simplify. Only loaded when Simplify asks for its add-ons, so Hosting also works
@@ -84,6 +86,12 @@ final class HostingAddon extends Addon
         }
 
         return $links;
+    }
+
+    /** My tickets in Simplify's account menu, while the hoster has tickets on (Simplify 1.5.5+, add-on API 4). */
+    public function accountPages(User $user): array
+    {
+        return Tickets::enabled() ? [new Button(__('simplify-hosting::tickets.title_account'), MyTickets::getUrl(panel: 'app'), 'tabler-lifebuoy')] : [];
     }
 
     /** Simplify's host mode, before Simplify had its Admin page (Simplify 1.5.5 and older). */

@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Tickets: customers ask questions from **Support** on their server or **My tickets** in the account menu, with a priority, your own categories and optionally the last 100 console lines. Support answers in **Tickets** in Admin, with internal notes, status, priority and assignment. Root admins and roles with **Ticket › Handle** handle tickets. Notifications go to the bell and, with Simplify's push, to phones. Off until you turn it on in the settings.
 - The setting "Open in host mode" is now called "Start admins on the Admin page", and the add-on's description no longer speaks of host mode.
 
 ## 2.0.0-beta.15

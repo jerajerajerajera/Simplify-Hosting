@@ -120,6 +120,8 @@ step('the settings save from the page and reject a link that is not https', func
         ->dispatch('simplify-hosting-settings-save')->assertHasNoErrors();
     Settings::flush();
     must(Settings::get('client_area_url') === 'https://billing.example.com/clientarea' && Settings::get('host_mode') === true, 'the settings were not saved');
+    // HO-B2: the help of "Open in host mode" says what it does since Simplify has its Admin page: there, once per session.
+    must(str_contains(__('simplify-hosting::hosting.host_mode_help'), "start on Simplify's Admin page, once per session") && ! str_contains(__('simplify-hosting::hosting.host_mode_help'), 'until they choose'), 'the help of Open in host mode describes the old host mode');
     Livewire::actingAs($admin)->test(HostingSettingsForm::class)->set('data.order_url', 'http://plain.example.com')->call('save')->assertHasErrors(['data.order_url']);
 });
 step('picking a billing system fills in its links', function () use ($admin) {
@@ -156,6 +158,22 @@ step('the add-on gives Simplify the billing link, the customer links and host mo
     $tagged = array_map(fn ($a) => $a::class, iterator_to_array(app()->tagged('simplify.addons')));
     must(in_array(HostingAddon::class, $tagged, true), 'the add-on is not tagged');
 });
+step('a billing link with {external_id} is left out for a server without an external id (HO-B1)', function () {
+    $saved = array_combine(Settings::FIELDS, array_map(fn ($key) => Settings::get($key), Settings::FIELDS));
+    Settings::save([...$saved, 'billing_url' => 'https://pay.example.com/upgrade.php?type=package&id={external_id}']);
+    try {
+        $addon = app(HostingAddon::class);
+        $server = new Server;
+        $server->uuid = 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee';
+        // Made in the panel itself, not by the billing system: a link ending in "id=" opens nothing useful there.
+        must(Settings::billing($server) === null && $addon->serverLinks($server) === [], 'a server without an external id gets a broken billing link: '.json_encode(Settings::billing($server)));
+        $server->external_id = '42';
+        must(Settings::billing($server) === 'https://pay.example.com/upgrade.php?type=package&id=42', 'the external id is not filled in: '.json_encode(Settings::billing($server)));
+    } finally {
+        Settings::save($saved);
+    }
+});
+
 step('Simplify\'s setup asks for the links and host mode and saves them', function () use ($admin, $customer) {
     $addon = app(HostingAddon::class);
     auth()->setUser($customer);

@@ -2,7 +2,13 @@
 
 ## Unreleased
 
-- The setting "Open in host mode" is now called "Start admins on the Admin page", with a help text that says what it does with Simplify 2.0: admins of a panel with more than one node start on the Admin page, once per session.
+- The setting "Open in host mode" is now called "Start admins on the Admin page", and the add-on's description no longer speaks of host mode.
+
+## 2.0.0-beta.15
+
+- A billing link with `{external_id}` is left out for a server without an external id (one made in the panel itself). Before, "Upgrade this server" and "Pay invoice" opened a link that ended in `id=`.
+- The help of **Open in host mode** says what the setting does: admins of a panel with more than one node start on Simplify's Admin page, once per session.
+- Checks: the panel smoke also runs on Pelican 1.0.0-rc.4.
 
 ## 2.0.0-beta.10
 

@@ -20,10 +20,17 @@ use Simplify\Core\Addons\Addon;
 use Simplify\Core\Filament\App\Pages\Overview;
 use Simplify\Core\Overview\Listing;
 use Simplify\Hosting\Filament\Admin\Pages\HostingSettings;
+use Simplify\Hosting\Filament\Admin\Pages\Tickets as StaffTickets;
+use Simplify\Hosting\Filament\App\Pages\MyTickets;
+use Simplify\Hosting\Filament\Server\Pages\Support;
 use Simplify\Hosting\HostingAddon;
 use Simplify\Hosting\Livewire\HostingSettingsForm;
+use Simplify\Hosting\Livewire\TicketDesk;
+use Simplify\Hosting\Models\Ticket;
 use Simplify\Hosting\Services\BillingSystems;
 use Simplify\Hosting\Services\Settings;
+use Simplify\Hosting\Services\Tickets;
+use Spatie\Permission\Models\Permission;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 define('LARAVEL_START', microtime(true));
@@ -264,6 +271,90 @@ if ($simplify && defined('Simplify\Core\Addons\Addon::API') && Addon::API >= 5) 
         must((new HostingAddon)->startUrl($customer) === null, 'a customer starts on the Admin page');
     });
 }
+
+// Tickets (Hosting 2.0): customers ask from their server or account menu, support answers in Admin.
+$stranger = User::where('email', 'smoke-hosting-stranger@example.com')->first()
+    ?? User::factory()->create(['email' => 'smoke-hosting-stranger@example.com']);
+step('tickets are off until the hoster turns them on', function () use ($customer, $server) {
+    Settings::save(['tickets' => false]);
+    must(! Tickets::enabled() && visit($customer, Support::getUrl(panel: 'server', tenant: $server))->getStatusCode() !== 200, 'Support opens while tickets are off');
+    must(visit($customer, MyTickets::getUrl(panel: 'app'))->getStatusCode() !== 200, 'My tickets opens while tickets are off');
+    Settings::save(['tickets' => true, 'ticket_categories' => ['Technical problem', 'Billing, invoices'], 'tickets_without_server' => true]);
+    Settings::flush();
+    must(Tickets::enabled() && Settings::categories() === ['Technical problem', 'Billing invoices'], 'the categories are not kept as the hoster wrote them: '.json_encode(Settings::categories()));
+    Settings::save(['ticket_categories' => 'Technical problem, Billing']);
+});
+step('a customer opens a ticket on their server and support hears of it', function () use ($admin, $customer, $server) {
+    must(visit($customer, Support::getUrl(panel: 'server', tenant: $server))->getStatusCode() === 200, 'the Support page does not open for the owner');
+    Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('server'));
+    $before = $admin->notifications()->count();
+    $desk = Livewire::actingAs($customer)->test(TicketDesk::class, ['mode' => 'server', 'serverId' => $server->id])
+        ->call('start')->set('subject', 'Smoke: server stops')->set('message', 'It stops after a minute.')
+        ->set('category', 'Nope')->set('attachLog', false)->call('create')->assertHasErrors(['category']);
+    $desk->set('category', 'Technical problem')->set('priority', 'urgent')->call('create')->assertHasErrors(['priority']);
+    $desk->set('priority', 'high')->call('create')->assertHasNoErrors();
+    $ticket = Ticket::query()->where('subject', 'Smoke: server stops')->latest('id')->first();
+    must($ticket !== null && $ticket->server_id === $server->id && $ticket->status === Ticket::OPEN && $ticket->priority === 'high' && $ticket->category === 'Technical problem', 'the ticket was not saved: '.json_encode($ticket));
+    must($admin->notifications()->count() > $before, 'a root admin got no notification of the new ticket');
+});
+step('nobody else sees a customer\'s ticket', function () use ($customer, $stranger) {
+    $ticket = Ticket::query()->where('subject', 'Smoke: server stops')->latest('id')->firstOrFail();
+    must(Tickets::customerSees($customer, $ticket) && ! Tickets::customerSees($stranger, $ticket), 'the ticket shows for the wrong people');
+    Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('app'));
+    Livewire::actingAs($stranger)->test(TicketDesk::class, ['mode' => 'account'])->call('show', $ticket->id)->assertSet('ticket', null);
+    try {
+        Livewire::actingAs($stranger)->test(TicketDesk::class, ['mode' => 'staff'])->assertForbidden();
+        $closed = true;
+    } catch (HttpException $e) {
+        $closed = $e->getStatusCode() === 403;
+    }
+    must($closed && visit($stranger, StaffTickets::getUrl(panel: 'admin'))->getStatusCode() !== 200, 'a customer opens Tickets in Admin');
+});
+step('support answers, keeps a note to itself, and the customer hears of the answer', function () use ($admin, $customer) {
+    $ticket = Ticket::query()->where('subject', 'Smoke: server stops')->latest('id')->firstOrFail();
+    must(visit($admin, StaffTickets::getUrl(['ticket' => $ticket->id], panel: 'admin'))->getStatusCode() === 200, 'Tickets in Admin does not open');
+    Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('admin'));
+    $before = $customer->notifications()->count();
+    Livewire::actingAs($admin)->test(TicketDesk::class, ['mode' => 'staff'])->call('show', $ticket->id)
+        ->set('internal', true)->set('reply', 'Smoke: Java version is wrong.')->call('send')->assertHasNoErrors()
+        ->set('reply', 'Smoke: we switched it to Java 21.')->call('send')->assertHasNoErrors()
+        ->call('prioritize', 'low')->call('assign', (string) $admin->id);
+    $ticket->refresh();
+    must($ticket->status === Ticket::ANSWERED && $ticket->customer_unread && $ticket->priority === 'low' && $ticket->assigned_to === $admin->id, 'the answer did not change the ticket: '.json_encode($ticket));
+    must($customer->notifications()->count() === $before + 1, 'the customer got no notification, or one for the note');
+    Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('app'));
+    $html = Livewire::actingAs($customer)->test(TicketDesk::class, ['mode' => 'account'])->call('show', $ticket->id)->html();
+    must(str_contains($html, 'Java 21') && ! str_contains($html, 'Java version is wrong'), 'the customer sees the internal note, or not the answer');
+    must(! $ticket->refresh()->customer_unread, 'opening the ticket did not mark the answer read');
+});
+// In a step of its own: a request to Admin earlier in the same process leaves Admin's render hooks behind.
+step('My tickets opens from the account menu', function () use ($customer) {
+    must(visit($customer, MyTickets::getUrl(panel: 'app'))->getStatusCode() === 200, 'My tickets does not open');
+});
+step('a role with Ticket › Handle handles tickets', function () use ($stranger) {
+    if (! method_exists(Role::class, 'registerCustomPermissions')) {
+        return;
+    }
+    must(array_key_exists('ticket', Role::getPermissionList()), 'Ticket › Handle is not among the role permissions');
+    $role = Role::query()->firstOrCreate(['name' => 'Smoke support', 'guard_name' => 'web']);
+    $role->syncPermissions([Permission::firstOrCreate(['name' => Tickets::PERMISSION, 'guard_name' => 'web'])]);
+    $helper = User::where('email', 'smoke-hosting-support@example.com')->first()
+        ?? User::factory()->create(['email' => 'smoke-hosting-support@example.com']);
+    $helper->syncRoles([$role]);
+    $helper = $helper->fresh();
+    must(Tickets::canHandle($helper) && ! Tickets::canHandle($stranger), 'the support role does not decide who handles tickets');
+    must(in_array($helper->id, Tickets::staffIds(), true), 'the support role is not told about tickets');
+    must(visit($helper, StaffTickets::getUrl(panel: 'admin'))->getStatusCode() === 200, 'Tickets in Admin does not open for the support role');
+});
+step('another add-on starts a ticket with its text filled in (Explain)', function () use ($customer, $server) {
+    auth()->setUser($customer);
+    $url = Tickets::draft($server, 'Smoke: explained error', 'Error: the port is in use');
+    must($url === Support::getUrl(['new' => 1], panel: 'server', tenant: $server), 'the draft opens somewhere else: '.$url);
+    Filament\Facades\Filament::setCurrentPanel(Filament\Facades\Filament::getPanel('server'));
+    Livewire::actingAs($customer)->withQueryParams(['new' => 1])->test(TicketDesk::class, ['mode' => 'server', 'serverId' => $server->id])
+        ->assertSet('subject', 'Smoke: explained error')->assertSet('log', 'Error: the port is in use');
+    must(Tickets::takeDraft() === null, 'the draft is used more than once');
+});
 
 echo $failed ? "Some steps failed\n" : "All steps passed\n";
 exit($failed ? 1 : 0);

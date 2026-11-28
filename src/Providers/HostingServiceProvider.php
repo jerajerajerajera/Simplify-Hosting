@@ -6,6 +6,7 @@ namespace Simplify\Hosting\Providers;
 
 use App\Enums\HeaderActionPosition;
 use App\Filament\Server\Pages\Console;
+use App\Models\Role;
 use App\Models\Server;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
@@ -13,6 +14,7 @@ use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Simplify\Hosting\HostingAddon;
 use Simplify\Hosting\Livewire\HostingSettingsForm;
+use Simplify\Hosting\Livewire\TicketDesk;
 use Simplify\Hosting\Services\Settings;
 
 final class HostingServiceProvider extends ServiceProvider
@@ -26,6 +28,15 @@ final class HostingServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Livewire::component('simplify-hosting-settings-form', HostingSettingsForm::class);
+        Livewire::component('simplify-hosting-ticket-desk', TicketDesk::class);
+        // People › Roles › Ticket › Handle: who answers tickets besides root admins (Tickets::PERMISSION).
+        // Older Pelican versions have no custom role permissions: there only root admins handle tickets.
+        if (method_exists(Role::class, 'registerCustomPermissions')) {
+            Role::registerCustomPermissions(['ticket' => ['handle']]);
+        }
+        if (method_exists(Role::class, 'registerCustomModelIcon')) {
+            Role::registerCustomModelIcon('ticket', 'tabler-lifebuoy');
+        }
         // With Simplify the link sits in the server page's ⋯ menu (HostingAddon::serverLinks); without it on the console.
         if (class_exists('Simplify\Core\SimplifyPlugin')) {
             return;
